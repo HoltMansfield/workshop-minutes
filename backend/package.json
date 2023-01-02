@@ -30,6 +30,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@graphql-eslint/eslint-plugin": "^3.14.3",
     "@tsconfig/recommended": "^1.0.1",
     "@types/express": "^4.17.2",
     "@types/node": "^12.12.18",
