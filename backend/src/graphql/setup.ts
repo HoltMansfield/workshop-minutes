@@ -11,7 +11,7 @@ const schema = buildSchema(`
 // The root provides a resolver function for each API endpoint
 const root = {
   hello: () => {
-    return 'Hello worldz!'
+    return 'Hello worldzy!'
   }
 }
 
