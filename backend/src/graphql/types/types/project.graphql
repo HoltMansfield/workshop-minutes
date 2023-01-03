@@ -1,11 +1,24 @@
 type Project {
-  id: ID!
-  description: String
-  price: Int
-  client: Client
+  id: String
+  details: ProjectDetails
+}
+
+type ProjectDetails {
+  id: String
+  name: String
+  startDate: DateTime
+}
+
+# Inputs
+input ProjectInput {
+  name: String
 }
 
 type Query {
-  projects: [Project]
-  project(id: ID!): Project
+  projects(userId: String!): [Project]
+  project(projectId: String!): Project
+}
+
+type Mutation {
+  addProject(newProject: ProjectInput): Project
 }

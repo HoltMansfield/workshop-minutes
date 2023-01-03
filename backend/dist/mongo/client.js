@@ -1,0 +1,18 @@
+module.exports = /* GraphQL */ `
+  type Client {
+    id: ID!
+    name: String
+    age: Int
+    products: [Product]
+  }
+
+  type Query {
+    clients: [Client]
+    client(id: ID!): Client
+  }
+
+  type Mutation {
+    addClient(name: String!, age: Int!): Client
+  }
+`;
+//# sourceMappingURL=client.js.map

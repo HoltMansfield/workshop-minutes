@@ -1,0 +1,8 @@
+{
+  project(projectId: "99") {
+    details {
+      id
+      startDate
+    }
+  }
+}
