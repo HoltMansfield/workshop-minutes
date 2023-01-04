@@ -1,4 +1,7 @@
-module.exports = {
+import { getCollection } from '../../../mongo/collection'
+import { Collections } from '../../../mongo/collections'
+
+const resolvers = {
   Query: {
     projects: () => {
       return [{ name: 'Rolling Tray' }, { name: 'Stash Box' }]
@@ -9,10 +12,14 @@ module.exports = {
     }
   },
   Mutation: {
-    addProject: (_, args: any) => {
+    addProject: async (_, args: any) => {
       const newProject = args.newProject
-      console.log(JSON.stringify(newProject))
-      return null
+      newProject.startDate = new Date()
+
+      const projects = getCollection(Collections.projects)
+      const result = await projects.insertOne(newProject)
+
+      return { id: result.id }
     }
   },
   Project: {
@@ -21,3 +28,5 @@ module.exports = {
     }
   }
 }
+
+export default resolvers
