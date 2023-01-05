@@ -3,8 +3,20 @@ import { Collections } from '../../../mongo/collections'
 
 const resolvers = {
   Query: {
-    projects: () => {
-      return [{ name: 'Rolling Tray' }, { name: 'Stash Box' }]
+    projects: async (_, userId: string) => {
+      const projects = getCollection(Collections.projects)
+      const projectsForThisUser = await projects.find({})
+      const mapped = projectsForThisUser.map((p) => {
+        return {
+          id: p.id,
+          details: {
+            name: p.name,
+            startDate: p.startDate
+          }
+        }
+      })
+
+      return mapped
     },
     project: (_, projectId: string) => {
       // this resolver is empty from a data standpoint, just passes the ID down
