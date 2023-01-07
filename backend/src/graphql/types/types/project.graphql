@@ -18,4 +18,5 @@ type Query {
 
 type Mutation {
   addProject(newProject: ProjectInput): Project
+  deleteProject(projectId: String): String
 }

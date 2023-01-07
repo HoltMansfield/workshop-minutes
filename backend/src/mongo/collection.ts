@@ -15,8 +15,8 @@ const insertOne = async (document: any) => {
 
 const find = async (query: any): Promise<any[]> => {
   const cursor = await collection.find(query)
-  const result = await cursor.toArray()
-  const rezzy = result.map((x) => {
+  const rows = await cursor.toArray()
+  const result = rows.map((x) => {
     const id = x._id.toString()
     delete x._id
 
@@ -25,7 +25,26 @@ const find = async (query: any): Promise<any[]> => {
       ...x
     }
   })
-  return rezzy
+  return result
+}
+
+const findOne = async (query: any): Promise<any[]> => {
+  const document = await collection.findOne(query)
+
+  if (!document) return document
+
+  const id = document._id.toString()
+  delete document._id
+
+  return {
+    id,
+    ...document
+  }
+}
+
+const deleteOne = async (query: any): Promise<number> => {
+  const result = await collection.deleteOne(query)
+  return result.deletedCount
 }
 
 export const getCollection = (collectionName: Collections) => {
@@ -34,6 +53,8 @@ export const getCollection = (collectionName: Collections) => {
 
   return {
     insertOne,
-    find
+    find,
+    findOne,
+    deleteOne
   }
 }

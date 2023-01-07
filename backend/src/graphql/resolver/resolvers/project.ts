@@ -1,17 +1,18 @@
+import { ObjectId } from 'mongodb'
 import { getCollection } from '../../../mongo/collection'
 import { Collections } from '../../../mongo/collections'
 
 const resolvers = {
   Query: {
-    projects: async (_, userId: string) => {
+    projects: async (_, args: any) => {
       const projects = getCollection(Collections.projects)
-      const projectsForThisUser = await projects.find({ userId: userId })
+      const projectsForThisUser = await projects.find({ userId: args.userId })
 
       return projectsForThisUser
     },
-    project: async (_, projectId: string) => {
+    project: async (_, args: any) => {
       const projects = getCollection(Collections.projects)
-      const project = await projects.find({ id: projectId })
+      const project = await projects.findOne({ _id: new ObjectId(args.projectId) })
 
       return project
     }
@@ -25,6 +26,17 @@ const resolvers = {
       const result = await projects.insertOne(newProject)
 
       return result
+    },
+    deleteProject: async (_, args: any) => {
+      const query = { _id: new ObjectId(args.projectId) }
+      const projects = getCollection(Collections.projects)
+      const deleteCount = await projects.deleteOne(query)
+
+      if (deleteCount === 0) {
+        throw new Error('Project not found')
+      }
+
+      return args.projectId
     }
   }
 }

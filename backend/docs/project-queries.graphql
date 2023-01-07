@@ -1,0 +1,28 @@
+mutation addProject($newProject: ProjectInput) {
+  addProject(newProject: $newProject) {
+    id
+    userId
+    name
+  }
+}
+
+mutation {
+  deleteProject(projectId: "63b7241439f9e8e7694ce54d")
+}
+
+query {
+  projects(userId: "John Blaze") {
+    id
+    userId
+    name
+  }
+}
+
+query {
+  project(projectId: "63b7248ab71a912ac1326627") {
+    id
+    userId
+    name
+    startDate
+  }
+}
