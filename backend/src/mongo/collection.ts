@@ -28,7 +28,7 @@ const find = async (query: any): Promise<any[]> => {
   return result
 }
 
-const findOne = async (query: any): Promise<any[]> => {
+const findOne = async (query: any): Promise<any> => {
   const document = await collection.findOne(query)
 
   if (!document) return document

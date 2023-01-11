@@ -7,11 +7,12 @@ type User {
 # Inputs
 input CreateUserInput {
   name: String
-  email: String
+  email: String!
+  password: String!
 }
 
 type Query {
-  user(userId: String!): User
+  userLogin(email: String!, password: String!): User
 }
 
 type Mutation {
