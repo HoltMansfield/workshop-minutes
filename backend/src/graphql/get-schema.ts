@@ -1,6 +1,6 @@
 const { mergeSchemas } = require('@graphql-tools/schema')
-import resolvers from '../resolver/get-resolvers'
-import typeDefs from '../types/get-types'
+import resolvers from './get-resolvers'
+import typeDefs from './get-types'
 
 export const getSchema = () => {
   const mergedSchema = mergeSchemas({

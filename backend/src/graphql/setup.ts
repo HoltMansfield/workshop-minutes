@@ -1,5 +1,5 @@
 import { graphqlHTTP } from 'express-graphql'
-import { getSchema } from './schema/get-schema'
+import { getSchema } from './get-schema'
 
 // Probably delete
 const root = {

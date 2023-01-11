@@ -1,3 +1,4 @@
 export enum Collections {
-  projects = 'projects'
+  projects = 'projects',
+  users = 'users'
 }

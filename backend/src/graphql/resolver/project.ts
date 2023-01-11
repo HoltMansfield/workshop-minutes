@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
-import { getCollection } from '../../../mongo/collection'
-import { Collections } from '../../../mongo/collections'
+import { getCollection } from '../../mongo/collection'
+import { Collections } from '../../mongo/collections'
 
 const resolvers = {
   Query: {
