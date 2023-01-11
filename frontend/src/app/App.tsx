@@ -1,14 +1,14 @@
 import { ApolloProvider } from '@apollo/client'
+import { RouterProvider } from 'react-router-dom'
 import { useApollo } from '../hooks/api/useApollo'
-import { Testy } from './Testy'
-
+import { router } from '../routes/RouteTable'
 
 function App() {
   const client = useApollo()
 
   return (
     <ApolloProvider client={client}>
-      <Testy />
+      <RouterProvider router={router} />
     </ApolloProvider>
   )
 }
