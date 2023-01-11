@@ -1,7 +1,34 @@
+import { Box } from '@mui/material'
 import React, { FunctionComponent } from 'react'
+import { SideMenu } from './navigation/side-menu/SideMenu'
 
-export const PageLayout = () => {
+export interface PageLayoutProps {
+  children: React.ReactElement
+}
+
+export const PageLayout = ({ children } : PageLayoutProps) => {
   return (
-    <div>Smart Layout Stuff Here</div>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
+      height: '100vh',
+    }}>
+      <Box sx={{
+        display: 'flex',
+        maxHeight: '70px'
+      }}>
+        App Bar
+      </Box>
+      <Box display="flex">
+        <SideMenu />
+      </Box>
+      <Box sx={{
+        display: 'flex',
+        flexGrow: 1
+      }}>
+        {children}
+      </Box>
+    </Box>
   )
 }
