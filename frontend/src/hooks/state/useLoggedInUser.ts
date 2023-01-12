@@ -1,9 +1,12 @@
 import { atom, useAtom } from 'jotai'
-const userAtom = atom(null)
+import { User } from '@workshop-minutes/data-model'
+
+const userAtom = atom<User | null>(null)
 
 export const useLoggedInUser = () => {
+  const [loggedInUser, setLoggedInUser] = useAtom(userAtom)
 
   return {
-
+    loggedInUser, setLoggedInUser
   } as const
 }
