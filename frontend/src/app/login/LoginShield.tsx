@@ -1,5 +1,6 @@
 import { Box, Link } from "@mui/material"
 import { useState } from "react"
+import { FormWrapper } from "../forms/FormWrapper"
 import { CreateUserForm } from "./CreateUserForm"
 import { LoginForm } from "./LoginForm"
 import { useLoginShield } from "./useLoginShield"
@@ -15,20 +16,27 @@ export const LoginShield = () => {
       left: 0,
       width: '100%',
       height: '100%',
-      backgroundColor: 'white'
+      backgroundColor: '#26293b'
     }}>
-      <Box display="flex" flexDirection="column">
-        <Box display="flex">
-          Please Login
-        </Box>
-        <Box display="flex" flexGrow={1} sx={{ border: '1px solid red'}}>
-          {!isNew && <LoginForm handleLogin={handleLogin} />}
-          {isNew && <CreateUserForm handleCreateAccount={handleCreateAccount} />}
-        </Box>
-        <Box display="flex">
-          <Link onClick={() => setIsNew(true)}>Create Account</Link>
+      <Box display="flex" margin="1rem" flexGrow={1} justifyContent="center">
+        <Box display="flex" marginTop='8px'><img src="images/stopwatch.png" height="40px" /></Box>
+          <Box display="flex" sx={{
+          fontStyle: 'bold', fontSize: '2.5rem', marginLeft: "6px", color: '#505570'
+          }}>
+          Workshop Minutes
         </Box>
       </Box>
+      <FormWrapper>
+        <Box display="flex" flexDirection="column" flexGrow={1}>
+          <Box display="flex" flexGrow={1} marginTop="1rem" marginBottom="1rem">
+            {!isNew && <LoginForm handleLogin={handleLogin} />}
+            {isNew && <CreateUserForm handleCreateAccount={handleCreateAccount} />}
+          </Box>
+          <Box display="flex" marginTop="1rem" marginLeft="2rem">
+            <Link onClick={() => setIsNew(true)}>Create Account</Link>
+          </Box>
+        </Box>
+      </FormWrapper>
     </Box>
   )
 }

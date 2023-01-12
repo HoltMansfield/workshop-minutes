@@ -1,5 +1,4 @@
-import { Box } from '@mui/material'
-import Grid from '@mui/material/Unstable_Grid2'
+import { Box, Paper } from '@mui/material'
 
 export interface FormWrapperProps {
   children: React.ReactElement
@@ -8,15 +7,19 @@ export interface FormWrapperProps {
 
 export const FormWrapper = ({ children, width = 500 } : FormWrapperProps) => {
   return (
-    <Box display="flex" flexGrow={1} sx={{ border: '1px solid blue'}}>
-     <Box display="flex" sx={{ 
+    <Box sx={{ display: 'flex', flexGrow: 1 }}>
+      <Box display="flex" sx={{ 
         width: { xs: '100%', md: `${width}px`},
-        marginLeft: { xs: '5%', md: 'auto'},
-        marginRight: { xs:'5%', md: 'auto'},
-        border: '1px solid yellow'
+        marginLeft: { xs: '2%', md: 'auto'},
+        marginRight: { xs:'2%', md: 'auto'}
       }}>
-      {children}
+        <Paper elevation={3} sx={{
+          display: 'flex', flexGrow: 1,
+          padding: { xs: '1rem', md: '1rem'},
+        }}>
+          {children}
+        </Paper>
+      </Box>
      </Box>
-    </Box>
   )
 }
