@@ -17,7 +17,7 @@ export const LoginForm = ({ handleLogin }: LoginFormProps) => {
     <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexGrow: '1' }}>
       <Box display="flex" flexDirection="column" flexGrow={1}>
         <Box display="flex" flexGrow={1}>
-          <TextField label="Email" variant="outlined" fullWidth {...register("email", { required: true, pattern: emailRegex })} />
+          <TextField label="Email" variant="outlined" fullWidth {...register("email", { required: "It's required dude", pattern: emailRegex })} />
         </Box>
         {errors.email?.type === 'required' && <Box display="flex">Email is required</Box>}
         {errors.email?.type === 'pattern' && <Box display="flex">Email is invalid</Box>}

@@ -33,7 +33,9 @@ export const CreateUserForm = ({ handleCreateAccount }: CreateUserFormProps) => 
             type="password" {...register("passwordConfirm", { 
               required: true,
               validate: (value: string) => {
-                return getValues('password') === value
+                if(getValues('password') !== value) {
+                  return 'Passwords fail'
+                }
               }
             })} />
         </Box>
@@ -42,7 +44,7 @@ export const CreateUserForm = ({ handleCreateAccount }: CreateUserFormProps) => 
         <Box display="flex" marginTop="1rem">
           <TextField label="Display Name (Optional)" variant="outlined" fullWidth {...register("name")} />
         </Box>
-        <Box display="flex" marginTop="1rem"><Button type="submit" variant="outlined">Login</Button></Box>
+        <Box display="flex" marginTop="1rem"><Button type="submit" variant="outlined">Create</Button></Box>
       </Box>
     </form>
   )

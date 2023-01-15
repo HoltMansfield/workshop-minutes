@@ -1,7 +1,9 @@
 import { MongoClient } from 'mongodb'
 
-const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/`
-//"mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.plwnqmh.mongodb.net/?retryWrites=true&w=majority`
+
+// Local => `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/`
+
 const client = new MongoClient(uri)
 let db
 

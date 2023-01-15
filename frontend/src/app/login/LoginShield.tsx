@@ -32,7 +32,7 @@ export const LoginShield = () => {
             {!isNew && <LoginForm handleLogin={handleLogin} />}
             {isNew && <CreateUserForm handleCreateAccount={handleCreateAccount} />}
           </Box>
-          <Box display="flex" marginTop="1rem" marginLeft="2rem">
+          <Box display="flex" flexGrow={1} justifyContent="center" marginTop="1rem">
             {!isNew && <Link onClick={() => setIsNew(true)}>Create Account</Link>}
             {isNew && <Link onClick={() => setIsNew(false)}>Login</Link>}
           </Box>
