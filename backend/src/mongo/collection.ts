@@ -49,7 +49,7 @@ const deleteOne = async (query: any): Promise<number> => {
 
 export const getCollection = (collectionName: Collections) => {
   const db = getDb()
-  collection = db.collection(Collections.projects)
+  collection = db.collection(collectionName)
 
   return {
     insertOne,

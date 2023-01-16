@@ -7,7 +7,11 @@ import { useLoginShield } from "./useLoginShield"
 
 export const LoginShield = () => {
   const [isNew, setIsNew] = useState(false)
-  const { handleLogin, handleCreateAccount } = useLoginShield()
+  const { handleLogin, handleCreateAccount, loggedInUser } = useLoginShield()
+
+  if (loggedInUser) {
+    return null
+  }
 
   return (
     <Box sx={{

@@ -1,7 +1,7 @@
 import { useLoggedInUser } from "../../hooks/state/useLoggedInUser"
 
 export const useLoginShield = () => {
-  const { setLoggedInUser, setJwt } = useLoggedInUser()
+  const { loggedInUser, setLoggedInUser, setJwt } = useLoggedInUser()
 
   const handleLogin = (email: string, password: string) => {
     debugger
@@ -14,18 +14,28 @@ export const useLoginShield = () => {
       password,
       name
     }
-    const response: any = await fetch(`${base}/users`, {
-      method: 'POST',
-      //@ts-expect-error
-      body: request
-    })
+    let response: any
+    try {
+      response = await fetch(`${base}/users`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+      })
+    } catch (e) {
+     alert(e)
+    }
 
-    setLoggedInUser(response.user)
-    setJwt(response.jwt)
+    const json = await response.json()
+    setLoggedInUser(json.user)
+    setJwt(json.jwt)
   }
 
   return {
     handleLogin,
-    handleCreateAccount
+    handleCreateAccount,
+    loggedInUser
   } as const
 }

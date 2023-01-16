@@ -18,6 +18,8 @@ export const addUserRoutes = (app: Express) => {
     }
 
     const token = jwt.sign(user, 'toDo: use cert')
+    delete user.password
+    delete user.salt
 
     return res.json({ user, jwt: token })
   })
@@ -42,6 +44,9 @@ export const addUserRoutes = (app: Express) => {
     const result = await users.insertOne(newUser)
 
     const token = jwt.sign(result, 'toDo: use cert')
+
+    delete result.password
+    delete result.salt
 
     return res.json({
       user: result,
