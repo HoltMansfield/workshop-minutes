@@ -2,8 +2,6 @@ import { Express } from 'express'
 import { ObjectId } from 'mongodb'
 import axios from 'axios'
 import bcrypt from 'bcrypt'
-import { Collections } from '../mongo/collections'
-import { nextTick } from 'process'
 
 const getClient = () => {
   const client = axios.create({
@@ -37,7 +35,7 @@ export const addUserRoutes = (app: Express) => {
     delete user?.data?.document.password
     delete user?.data?.document.salt
 
-    res.cookie('session', user?.data?.document._id, { maxAge: 360000 })
+    res.cookie('session', user?.data?.document._id, { maxAge: 14 * 24 * 360000 })
 
     return res.json(user?.data?.document)
   })
@@ -73,7 +71,7 @@ export const addUserRoutes = (app: Express) => {
     delete newUser.salt
     newUser._id = result.data.insertedId
 
-    res.cookie('session', result.data.insertedId, { maxAge: 360000 })
+    res.cookie('session', result.data.insertedId, { maxAge: 14 * 24 * 360000 })
     return res.json(newUser)
   })
 

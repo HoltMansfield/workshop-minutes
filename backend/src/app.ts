@@ -5,6 +5,7 @@ import cors from 'cors'
 import { connectMongo } from './mongo/setup'
 import { addUserRoutes } from './routes/user'
 import { handleApiError } from './server/error-handling/error-handler'
+import { addDataApiRoutes } from './routes/mongo-data-api'
 
 // const corsOptions = {
 //   origin: 'http://localhost:5173/',
@@ -22,6 +23,9 @@ const run = async () => {
 
   // no security for these routes
   addUserRoutes(app)
+
+  // cookie required
+  addDataApiRoutes(app)
 
   // post-endpoint middleware (error handler always last)
   app.use(handleApiError)
