@@ -18,6 +18,7 @@
     "build-packages": "yarn workspaces foreach build:silent",
     "clean-packages": "yarn workspaces foreach clean",
     "nuke": "rm -rf node_modules && rm -rf dist && rm -rf build",
+    "nuke-all": "yarn workspaces foreach run nuke",
     "lint:fix": "yarn workspaces foreach lint:fix"
   }
 }

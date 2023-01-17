@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "nuke": "rm -rf node_modules && rm -rf dist && rm -rf build"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",

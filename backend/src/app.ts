@@ -1,8 +1,9 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
+
 import { connectMongo } from './mongo/setup'
-import { getMiddleware } from './graphql/setup'
 import { addUserRoutes } from './routes/user'
 import { handleApiError } from './server/error-handling/error-handler'
 import { addJwt } from './server/add-jwt'
@@ -18,6 +19,7 @@ const run = async () => {
 
   // pre-endpoint middleware
   app.use(bodyParser.json())
+  app.use(cookieParser())
   app.use(cors())
 
   addJwt(app)
@@ -25,14 +27,11 @@ const run = async () => {
   // no security for these routes
   addUserRoutes(app)
 
-  // add GraphQL endpoint
-  app.use('/graphql', getMiddleware())
-
   // post-endpoint middleware (error handler always last)
   app.use(handleApiError)
 
   app.listen(4000, () => {
-    console.log('Running a GraphQL API server at http://localhost:4000/graphql')
+    console.log('Listening at http://localhost:4000...')
   })
 }
 
