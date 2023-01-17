@@ -2,11 +2,9 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-
 import { connectMongo } from './mongo/setup'
 import { addUserRoutes } from './routes/user'
 import { handleApiError } from './server/error-handling/error-handler'
-import { addJwt } from './server/add-jwt'
 
 // const corsOptions = {
 //   origin: 'http://localhost:5173/',
@@ -21,8 +19,6 @@ const run = async () => {
   app.use(bodyParser.json())
   app.use(cookieParser())
   app.use(cors())
-
-  addJwt(app)
 
   // no security for these routes
   addUserRoutes(app)

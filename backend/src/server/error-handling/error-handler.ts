@@ -11,7 +11,7 @@ export interface ErrorAwareRequest extends Request {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const handleApiError = <T>(error: Error, req: ErrorAwareRequest, res: Response, next: NextFunction): void => {
-  const httpStatusCode = req.statusCode || HttpStatus.UnprocessableEntity
+  const httpStatusCode = res.statusCode || HttpStatus.UnprocessableEntity
 
   const response: ErrorResponse = {
     httpStatusCode,

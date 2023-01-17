@@ -2,9 +2,8 @@ import { Express } from 'express'
 import { ObjectId } from 'mongodb'
 import axios from 'axios'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { getCollection } from '../mongo/collection'
 import { Collections } from '../mongo/collections'
+import { nextTick } from 'process'
 
 const getClient = () => {
   const client = axios.create({
@@ -19,27 +18,32 @@ const getClient = () => {
 }
 
 export const addUserRoutes = (app: Express) => {
-  app.post('/users-login', async (req, res) => {
+  app.post('/users/login', async (req, res, next) => {
     const loginAttempt = req.body
-    const users = getCollection(Collections.users)
-    const user = await users.findOne({ email: loginAttempt.email })
 
-    const hashedPassword = await bcrypt.hash(loginAttempt.password, user.salt)
+    const user = await getClient().post('findOne', {
+      dataSource: 'Cluster0',
+      database: 'wmins',
+      collection: 'users',
+      filter: { email: loginAttempt.email }
+    })
 
-    if (hashedPassword !== user.password) {
-      throw new Error('Email or Password are incorrect')
+    const hashedPassword = await bcrypt.hash(loginAttempt.password, user?.data?.document.salt)
+
+    if (hashedPassword !== user?.data?.document.password) {
+      return next(new Error('Email or Password are incorrect'))
     }
 
-    const token = jwt.sign(user, 'toDo: use cert')
-    delete user.password
-    delete user.salt
+    delete user?.data?.document.password
+    delete user?.data?.document.salt
 
-    return res.json({ user, jwt: token })
+    res.cookie('session', user?.data?.document._id, { maxAge: 360000 })
+
+    return res.json(user?.data?.document)
   })
 
   app.post('/users', async (req, res, next) => {
     const newUser = req.body
-    const users = getCollection(Collections.users)
 
     const existingUser = await getClient().post('findOne', {
       dataSource: 'Cluster0',
@@ -69,17 +73,43 @@ export const addUserRoutes = (app: Express) => {
     delete newUser.salt
     newUser._id = result.data.insertedId
 
-    res.cookie('first', result.data.insertedId, { maxAge: 360000 })
+    res.cookie('session', result.data.insertedId, { maxAge: 360000 })
     return res.json(newUser)
   })
 
-  app.delete('/users/:userId', async (req, res) => {
-    const query = { _id: new ObjectId(req.params.userId) }
-    const users = getCollection(Collections.users)
-    const deleteCount = await users.deleteOne(query)
+  app.get('/users', async (req, res) => {
+    const query = { _id: { $oid: req.cookies.session } }
 
-    if (deleteCount === 0) {
-      throw new Error('User not found')
+    const user = await getClient().post('findOne', {
+      dataSource: 'Cluster0',
+      database: 'wmins',
+      collection: 'users',
+      filter: query
+    })
+
+    delete user?.data?.document.password
+    delete user?.data?.document.salt
+
+    return res.json(user?.data?.document)
+  })
+
+  app.delete('/users/:userId', async (req, res, next) => {
+    if (req.params.userId !== req.cookies.session) {
+      res.statusCode = 401
+      return next(new Error('Not Authorized'))
+    }
+
+    const query = { _id: { $oid: req.cookies.session } }
+
+    const result = await getClient().post('deleteOne', {
+      dataSource: 'Cluster0',
+      database: 'wmins',
+      collection: 'users',
+      filter: query
+    })
+
+    if (result?.data?.deletedCount === 0) {
+      return next(new Error('User not found'))
     }
 
     return res.json({ userId: req.params.userId })
