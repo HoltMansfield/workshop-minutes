@@ -14,15 +14,17 @@ const getClient = () => {
 interface MongoOperation {
   action: string
   collection: string
+  dataSource: string
+  database: string
   document?: object
 }
 
 export const addDataApiRoutes = (app: Express) => {
   app.post('/data-api', async (req, res, next) => {
-    if (!req.cookies.session) {
-      res.statusCode = 401
-      return next(new Error('Not Authorized'))
-    }
+    // if (!req.cookies.session) {
+    //   res.statusCode = 401
+    //   return next(new Error('Not Authorized'))
+    // }
 
     const operation = req.body as MongoOperation
     const action = operation.action
@@ -36,6 +38,9 @@ export const addDataApiRoutes = (app: Express) => {
 
     const client = getClient()
     let response
+
+    operation.dataSource = 'Cluster0'
+    operation.database = 'wmins'
 
     try {
       response = await client.post(action, operation)

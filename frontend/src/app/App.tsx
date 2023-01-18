@@ -1,24 +1,24 @@
-import { ApolloProvider } from '@apollo/client'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { RouterProvider } from 'react-router-dom'
-import { useApollo } from '../hooks/api/useApollo'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { useMaterialTheme } from '../hooks/useMaterialTheme'
 import { router } from '../routes/RouteTable'
 import { PageLayout } from './PageLayout'
 
+const queryClient = new QueryClient()
+
 function App() {
-  const client = useApollo()
   const theme = useMaterialTheme()
 
   return (
-    <ApolloProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <PageLayout>
           <RouterProvider router={router} />
         </PageLayout>
       </ThemeProvider>
-    </ApolloProvider>
+    </QueryClientProvider>
   )
 }
 
