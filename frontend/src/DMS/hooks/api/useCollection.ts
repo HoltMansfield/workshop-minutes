@@ -18,6 +18,9 @@ export const useCollection = (collectionName: string) => {
   }
 
   const findOne = async (query: object): Promise<any> => {
+    const hasAuth = document.cookie.indexOf('session=')
+    if (hasAuth === -1) return null
+  
     const result = await fetch(`${base}/data-api`, {
       method: 'post',
       headers: {

@@ -1,17 +1,17 @@
 import { useMutation } from 'react-query'
-import { User } from '../../../collections/user'
+import { Project } from '../../../collections/project'
 import { HttpError } from '../../../../types/api'
 import { useCollection } from "../../api/useCollection"
 
 export const useCreateProject = () => {
   const { insertOne } = useCollection('projects')
 
-  const _request = async (document: User): Promise<User> => {
+  const _request = async (document: Project): Promise<Project> => {
     const result = await insertOne(document)
-    return result as User 
+    return result as Project 
   }
  
-  const mutation = useMutation<User, HttpError, User, () => void>(document => {
+  const mutation = useMutation<Project, HttpError, Project, () => void>(document => {
     return _request(document)
   })
 

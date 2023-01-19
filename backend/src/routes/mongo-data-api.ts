@@ -21,10 +21,10 @@ interface MongoOperation {
 
 export const addDataApiRoutes = (app: Express) => {
   app.post('/data-api', async (req, res, next) => {
-    // if (!req.cookies.session) {
-    //   res.statusCode = 401
-    //   return next(new Error('Not Authorized'))
-    // }
+    if (!req.cookies.session) {
+      res.statusCode = 401
+      return next(new Error('Not Authorized'))
+    }
 
     const operation = req.body as MongoOperation
     const action = operation.action

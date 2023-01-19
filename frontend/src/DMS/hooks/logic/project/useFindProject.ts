@@ -1,17 +1,17 @@
 import { useQuery } from 'react-query'
-import { User } from '../../../collections/user'
+import { Project } from '../../../collections/project'
 import { HttpError } from '../../../../types/api'
 import { useCollection } from "../../api/useCollection"
 
 export const useFindProject = (query: object) => {
   const { findOne } = useCollection('projects')
 
-  const _fetcher = async (): Promise<User> => {
+  const _fetcher = async (): Promise<Project> => {
     const result = await findOne(query)
-    return result as User 
+    return result as Project 
   }
 
-  const { status, error, data } = useQuery<User, HttpError>(
+  const { status, error, data } = useQuery<Project, HttpError>(
     ['findUser', { _id: 1 }],
     _fetcher
   )

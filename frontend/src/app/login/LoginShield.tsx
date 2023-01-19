@@ -1,4 +1,4 @@
-import { Box, Link } from "@mui/material"
+import { Box, Button, Link } from "@mui/material"
 import { useState } from "react"
 import { FormWrapper } from "../forms/FormWrapper"
 import { CreateUserForm } from "./CreateUserForm"
@@ -37,8 +37,8 @@ export const LoginShield = () => {
             {isNew && <CreateUserForm handleCreateAccount={handleCreateAccount} />}
           </Box>
           <Box display="flex" flexGrow={1} justifyContent="center" marginTop="1rem">
-            {!isNew && <Link onClick={() => setIsNew(true)}>Create Account</Link>}
-            {isNew && <Link onClick={() => setIsNew(false)}>Login</Link>}
+            {!isNew && <Button onClick={() => setIsNew(true)}>Create Account</Button>}
+            {isNew && <Button onClick={() => setIsNew(false)}>Login</Button>}
           </Box>
         </Box>
       </FormWrapper>
