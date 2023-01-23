@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import { LoginShield } from './login/LoginShield'
 import { SideMenu } from './navigation/side-menu/SideMenu'
 
 export interface PageLayoutProps {
@@ -14,7 +13,6 @@ export const PageLayout = ({ children } : PageLayoutProps) => {
       flexGrow: 1,
       height: '100vh',
     }}>
-      <LoginShield />
       <Box sx={{
         display: 'flex',
         maxHeight: '70px'

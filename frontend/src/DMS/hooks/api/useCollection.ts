@@ -4,6 +4,7 @@ export const useCollection = (collectionName: string) => {
   const insertOne = async (document: object) => {
     const result = await fetch(`${base}/data-api`, {
       method: 'post',
+      //credentials: 'include',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -17,12 +18,10 @@ export const useCollection = (collectionName: string) => {
     return result.json()
   }
 
-  const findOne = async (query: object): Promise<any> => {
-    const hasAuth = document.cookie.indexOf('session=')
-    if (hasAuth === -1) return null
-  
+  const findOne = async (query: object): Promise<any> => {  
     const result = await fetch(`${base}/data-api`, {
       method: 'post',
+      //credentials: 'include',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

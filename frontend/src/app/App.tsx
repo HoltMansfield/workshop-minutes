@@ -4,11 +4,13 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { useMaterialTheme } from '../hooks/useMaterialTheme'
 import { router } from '../routes/RouteTable'
 import { PageLayout } from './PageLayout'
+//import { useCheckForPreviousSession } from '../hooks/state/useCheckForPreviousSession'
 
 const queryClient = new QueryClient()
 
 function App() {
   const theme = useMaterialTheme()
+  //useCheckForPreviousSession()
 
   return (
     <QueryClientProvider client={queryClient}>

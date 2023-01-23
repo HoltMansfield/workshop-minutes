@@ -7,10 +7,10 @@ import { addUserRoutes } from './routes/user'
 import { handleApiError } from './server/error-handling/error-handler'
 import { addDataApiRoutes } from './routes/mongo-data-api'
 
-// const corsOptions = {
-//   origin: 'http://localhost:5173/',
-//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
+const corsOptions = {
+  origin: 'localhost',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 const run = async () => {
   await connectMongo()
@@ -18,8 +18,9 @@ const run = async () => {
 
   // pre-endpoint middleware
   app.use(bodyParser.json())
-  app.use(cookieParser())
+  //app.options('*', cors())
   app.use(cors())
+  app.use(cookieParser())
 
   // no security for these routes
   addUserRoutes(app)
