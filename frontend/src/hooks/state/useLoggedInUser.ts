@@ -1,7 +1,7 @@
 import { atom, useAtom } from 'jotai'
 import { User } from '@workshop-minutes/data-model'
 
-const userAtom = atom<User | null>(null)
+const userAtom = atom<User | null | undefined>(undefined)
 
 
 export const useLoggedInUser = () => {
