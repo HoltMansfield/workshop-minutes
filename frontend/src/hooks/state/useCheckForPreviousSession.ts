@@ -14,6 +14,7 @@ export const useCheckForPreviousSession = () => {
     try {
       const response = await fetch(`${base}/users`, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

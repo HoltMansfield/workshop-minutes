@@ -79,7 +79,8 @@ export const addUserRoutes = (app: Express) => {
   })
 
   app.get('/users', async (req, res) => {
-    const query = { _id: { $oid: req.cookies.session } }
+    //@ts-expect-error
+    const query = { _id: { $oid: req?.session?.userId } }
 
     const user = await getClient().post('findOne', {
       dataSource: 'Cluster0',
@@ -95,12 +96,13 @@ export const addUserRoutes = (app: Express) => {
   })
 
   app.delete('/users/:userId', async (req, res, next) => {
-    if (req.params.userId !== req.cookies.session) {
+    //@ts-expect-error
+    if (req.params.userId !== req?.session?.userId) {
       res.statusCode = 401
       return next(new Error('Not Authorized'))
     }
-
-    const query = { _id: { $oid: req.cookies.session } }
+    //@ts-expect-error
+    const query = { _id: { $oid: req?.session?.userId } }
 
     const result = await getClient().post('deleteOne', {
       dataSource: 'Cluster0',

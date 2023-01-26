@@ -22,7 +22,7 @@ interface MongoOperation {
 export const addDataApiRoutes = (app: Express) => {
   app.post('/data-api', async (req, res, next) => {
     //@ts-expect-error
-    if (!req.session.userId) {
+    if (!req?.session?.userId) {
       res.statusCode = 401
       return next(new Error('Not Authorized'))
     }
