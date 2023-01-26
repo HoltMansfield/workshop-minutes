@@ -15,6 +15,7 @@ export const useLogin = () => {
     try {
       const response = await fetch(`${base}/users/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

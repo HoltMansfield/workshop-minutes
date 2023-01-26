@@ -15,14 +15,6 @@ const getClient = () => {
   return client
 }
 
-const cookieOptions = {
-  maxAge: 14 * 24 * 360000,
-  //secure: true,
-  //sameSite: 'none',
-  //vary: 'Origin, Accept-Encoding',
-  domain: 'http://localhost:5173'
-}
-
 export const addUserRoutes = (app: Express) => {
   app.post('/users/login', async (req, res, next) => {
     const loginAttempt = req.body
@@ -42,8 +34,9 @@ export const addUserRoutes = (app: Express) => {
 
     delete user?.data?.document.password
     delete user?.data?.document.salt
-    //@ts-expe3ct-error
-    res.cookie('session', user?.data?.document._id, cookieOptions)
+
+    //@ts-expect-error
+    req.session.userId = user?.data?.document._id
 
     return res.json(user?.data?.document)
   })
@@ -78,8 +71,10 @@ export const addUserRoutes = (app: Express) => {
     delete newUser.password
     delete newUser.salt
     newUser._id = result.data.insertedId
-    //@ts-expe3ct-error
-    res.cookie('session', result.data.insertedId, cookieOptions)
+
+    //@ts-expect-error
+    req.session.userId = newUser._id
+
     return res.json(newUser)
   })
 

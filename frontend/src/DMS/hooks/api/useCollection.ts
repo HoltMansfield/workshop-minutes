@@ -32,9 +32,9 @@ export const useCollection = (collectionName: string) => {
   }
 
   // const findOne = async (query: object): Promise<any> => {  
-  //   const result = await fetch(`${base}/data-api`, {
+  //   const result = await fetch(`http://127.0.0.1:4000/data-api`, {
   //     method: 'post',
-  //     //mode: 'cors',
+  //     mode: 'cors',
   //     credentials: 'include',
   //     headers: {
   //       'Accept': 'application/json',

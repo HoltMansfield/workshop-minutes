@@ -49,7 +49,7 @@
     "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
     "concurrently": "^5.2.0",
-    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongo": "^0.1.0",
