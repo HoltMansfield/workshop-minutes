@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
+import { CreateProject } from './create-project/CreateProject'
 import { CreateUser } from './create-user/CreateUser'
 import { Login } from './login/Login'
 import { LoginRequired } from './LoginRequired'
@@ -17,5 +18,9 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginRequired><SelectedProject /></LoginRequired>
+  },
+  {
+    path: "/create-project",
+    element: <LoginRequired><CreateProject /></LoginRequired>
   }
 ])
