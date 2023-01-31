@@ -41,6 +41,13 @@ export const addUserRoutes = (app: Express) => {
     return res.json(user?.data?.document)
   })
 
+  app.get('/users/logout', async (req, res) => {
+    //@ts-expect-error
+    req?.session = null
+
+    return res.status(200).send()
+  })
+
   app.post('/users', async (req, res, next) => {
     const newUser = req.body
 

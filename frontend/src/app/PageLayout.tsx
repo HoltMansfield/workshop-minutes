@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import { AppBar } from './AppBar'
 import { SideMenu } from './navigation/side-menu/SideMenu'
 
 export interface PageLayoutProps {
@@ -13,12 +14,7 @@ export const PageLayout = ({ children } : PageLayoutProps) => {
       flexGrow: 1,
       height: '100vh',
     }}>
-      <Box sx={{
-        display: 'flex',
-        maxHeight: '70px'
-      }}>
-        App Bar
-      </Box>
+      <AppBar />
       <Box display="flex">
         <SideMenu />
       </Box>
