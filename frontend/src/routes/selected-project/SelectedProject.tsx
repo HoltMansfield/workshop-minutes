@@ -2,29 +2,18 @@ import { Button } from "@mui/material"
 import { useState } from "react"
 import { useCreateProject } from "../../DMS/hooks/logic/project/useCreateProject"
 import { useFindProject } from "../../DMS/hooks/logic/project/useFindProject"
+import { useProjectState } from "../../hooks/state/useProjectState"
+import { NoContent } from "./NoContent"
 
 
 export const SelectedProject = () => {
-  const { status, error, data } = useFindProject({ _id: { $oid: '63c738e7e13e90c76e22536a' }})
-  const { mutation } = useCreateProject()
-  const [show, setShow] = useState(false)
+  const { selectedProject } = useProjectState()
+
+  if (!selectedProject) return <NoContent />
 
   return (
     <div>
-      <div>status: { status }</div>
-      { error &&  <div>error: { error.message }</div>}
-      { data &&  <div>data: { JSON.stringify(data) }</div>}
-      { mutation.isLoading && (
-          'Adding todo...'
-        )
-      }
-        {mutation.isError ? (
-      <div>An error occurred: {mutation.error.message}</div>
-      ) : null}
-        { mutation.isSuccess ? <div>Todo added!</div> : null }
-        <Button onClick={() => 
-          mutation.mutate({ name: 'Wall Clock', status: 'dreaming' })
-        }>Create</Button>
+      content now
     </div>
   )
 }
