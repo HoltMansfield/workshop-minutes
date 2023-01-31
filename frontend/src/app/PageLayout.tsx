@@ -24,7 +24,8 @@ export const PageLayout = ({ children } : PageLayoutProps) => {
       </Box>
       <Box sx={{
         display: 'flex',
-        flexGrow: 1
+        flexGrow: 1,
+        margin: '1rem'
       }}>
         {children}
       </Box>

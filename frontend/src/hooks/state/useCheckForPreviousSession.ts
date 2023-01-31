@@ -21,7 +21,7 @@ export const useCheckForPreviousSession = () => {
         },
       })
       const user = await response.json()
-      if (user) setLoggedInUser(user)
+      setLoggedInUser(user)
     } catch (e) {
      alert(e)
     }

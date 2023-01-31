@@ -15,7 +15,7 @@ function App() {
   const { loggedInUser } = useLoggedInUser()
   useCheckForPreviousSession()
 
-  // Undefined on first load, null if not logged in
+  // Undefined on first load | null if not logged in | object if logged in
   if (loggedInUser === undefined) {
     return <Spinner />
   }
