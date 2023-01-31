@@ -1,7 +1,7 @@
 const base = import.meta.env.VITE_API_URL
 
 export const useCollection = (collectionName: string) => {
-  const insertOne = async (query: object): Promise<any> => {  
+  const insertOne = async (document: object): Promise<any> => {  
     const result = await fetch(`${base}/data-api`, {
       method: 'post',
       credentials: 'include',

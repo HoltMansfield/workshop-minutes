@@ -3,17 +3,24 @@ import { useState } from "react"
 import { useCreateProject } from "../../DMS/hooks/logic/project/useCreateProject"
 import { useFindProject } from "../../DMS/hooks/logic/project/useFindProject"
 import { useProjectState } from "../../hooks/state/useProjectState"
+import { LoadSelectedProject } from "./LoadSelectedProject"
 import { NoContent } from "./NoContent"
 
 
 export const SelectedProject = () => {
-  const { selectedProject } = useProjectState()
+  const { selectedProject, selectedProjectId } = useProjectState()
 
-  if (!selectedProject) return <NoContent />
+  if (!selectedProject && !selectedProjectId) return <NoContent />
+
+  if (!selectedProject && selectedProjectId) return <LoadSelectedProject selectedProjectId={selectedProjectId} />
+
+  if (!selectedProject) {
+    return null
+  }
 
   return (
     <div>
-      content now
+      {selectedProject.name}
     </div>
   )
 }
