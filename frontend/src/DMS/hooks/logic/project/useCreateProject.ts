@@ -11,8 +11,12 @@ export const useCreateProject = () => {
     return result as Project 
   }
  
-  const mutation = useMutation<Project, HttpError, Project, () => void>(document => {
-    return _request(document)
+  const mutation = useMutation<Project, HttpError, Project, () => void>(async document => {
+    const response = await _request(document)
+    //@ts-ignore
+    const _id = response.insertedId
+
+    return { ...document, _id }
   })
 
   return {
