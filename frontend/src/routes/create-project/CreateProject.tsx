@@ -8,7 +8,7 @@ import { ProjectForm } from "./ProjectForm"
 
 export const CreateProject = () => {
   const { mutation } = useCreateProject()
-  const { setSelectedProject, setSelectedProjectId } = useProjectState()
+  const { setSelectedProject, setSelectedProjectId, projects, setProjects } = useProjectState()
   const {loggedInUser } = useApplicationState()
   const navigate = useNavigate()
 
@@ -29,6 +29,8 @@ export const CreateProject = () => {
   if (mutation.isSuccess) {
     setSelectedProject(mutation.data)
     setSelectedProjectId(mutation.data._id)
+    //@ts-ignore
+    setProjects([...projects, mutation.data])
     navigate('/')
 
     return <div>Project added!</div>

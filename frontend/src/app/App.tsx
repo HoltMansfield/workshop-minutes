@@ -7,6 +7,7 @@ import { PageLayout } from './PageLayout'
 import { Spinner } from './Spinner'
 import { useCheckForPreviousSession } from '../hooks/state/useCheckForPreviousSession'
 import { useApplicationState } from '../hooks/state/useApplicationState'
+import { FetchProjects } from './FetchProjects'
 
 const queryClient = new QueryClient()
 
@@ -26,6 +27,7 @@ function App() {
         <BrowserRouter>
           <>
             <CssBaseline />
+            <FetchProjects />
             <PageLayout>
               <RouteTable />
             </PageLayout>
