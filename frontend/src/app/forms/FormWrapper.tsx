@@ -1,4 +1,5 @@
 import { Box, Paper } from '@mui/material'
+import { grey } from '@mui/material/colors'
 
 export interface FormWrapperProps {
   children: React.ReactElement
@@ -16,6 +17,7 @@ export const FormWrapper = ({ children, width = 500 } : FormWrapperProps) => {
         <Paper elevation={3} sx={{
           display: 'flex', flexGrow: 1,
           padding: { xs: '1rem', md: '1rem'},
+          backgroundColor: grey[200]
         }}>
           {children}
         </Paper>

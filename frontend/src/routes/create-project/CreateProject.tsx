@@ -11,6 +11,7 @@ export const CreateProject = () => {
   const navigate = useNavigate()
 
   const handleCreateProject = (name: string, status: string) => {
+    // ToDo check projects array for existing project with same name
     mutation.mutate({ name, status })
   }
 
@@ -26,6 +27,7 @@ export const CreateProject = () => {
     setSelectedProject(mutation.data)
     setSelectedProjectId(mutation.data._id)
     navigate('/')
+
     return <div>Project added!</div>
   }
 

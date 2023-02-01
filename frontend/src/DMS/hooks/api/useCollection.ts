@@ -32,7 +32,8 @@ export const useCollection = (collectionName: string) => {
         filter: query
       })
     })
-    return result.json()
+    const json = await result.json()
+    return json?.document
   }
 
   return {

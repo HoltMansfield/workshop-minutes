@@ -11,10 +11,10 @@ export const CreateUser = () => {
       flexDirection: 'column',
       flexGrow: 1
     }}>
-      <Box display="flex" flexGrow={1} marginTop="1rem" marginBottom="1rem">
+      <Box display="flex" flexGrow={1} marginTop="1rem" marginBottom="1rem" maxHeight="460px">
         <CreateUserForm />
       </Box>
-      <Box display="flex" flexGrow={1} justifyContent="center" marginTop="1rem">
+      <Box display="flex" justifyContent="center" marginTop="1rem">
         <Button onClick={() => navigate('/login')}>Log In</Button>
       </Box>
     </Box>
