@@ -1,8 +1,8 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import { RouterProvider } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useMaterialTheme } from '../hooks/useMaterialTheme'
-import { router } from '../routes/RouteTable'
+import { RouteTable } from '../routes/RouteTable'
 import { PageLayout } from './PageLayout'
 import { useLoggedInUser } from '../hooks/state/useLoggedInUser'
 import { Spinner } from './Spinner'
@@ -23,10 +23,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <PageLayout>
-          <RouterProvider router={router} />
-        </PageLayout>
+        <BrowserRouter>
+          <>
+            <CssBaseline />
+            <PageLayout>
+              <RouteTable />
+            </PageLayout>
+          </>
+        </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>
   )

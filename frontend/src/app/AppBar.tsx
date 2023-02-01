@@ -7,10 +7,12 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useLoggedInUser } from '../hooks/state/useLoggedInUser'
 import { useDmsUser } from '../DMS/hooks/api/useDmsUser'
+import { useApplicationState } from '../hooks/state/useApplicationState'
 
 export const AppBar = () => {
   const { loggedInUser, setLoggedInUser } = useLoggedInUser()
   const { logout } = useDmsUser()
+  const { sideMenuOpen, setSideMenuOpen } = useApplicationState()
 
   const handleLogout = async () => {
     try {
@@ -32,6 +34,7 @@ export const AppBar = () => {
           color="inherit"
           aria-label="menu"
           sx={{ mr: 2 }}
+          onClick={() => setSideMenuOpen(!sideMenuOpen)}
         >
           <MenuIcon />
         </IconButton>

@@ -1,17 +1,17 @@
 import { SwipeableDrawer } from '@mui/material'
-import { useState } from 'react'
+import { useApplicationState } from '../../../hooks/state/useApplicationState'
 import { SideMenuContent } from './SideMenuContent'
 
 export const SideMenu = () => {
-  const [open, setOpen] = useState(false)
+  const { sideMenuOpen, setSideMenuOpen } = useApplicationState()
 
   return (
     <div>
       <SwipeableDrawer
         anchor="left"
-        open={open}
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
+        open={sideMenuOpen}
+        onClose={() => setSideMenuOpen(false)}
+        onOpen={() => setSideMenuOpen(true)}
       >
         <SideMenuContent />
       </SwipeableDrawer>

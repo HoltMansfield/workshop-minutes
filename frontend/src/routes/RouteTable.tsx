@@ -1,26 +1,19 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { Box } from '@mui/material'
+import { createBrowserRouter, Route, Routes } from 'react-router-dom'
 import { CreateProject } from './create-project/CreateProject'
 import { CreateUser } from './create-user/CreateUser'
 import { Login } from './login/Login'
-import { LoginRequired } from './LoginRequired'
+import { LoginRequired as LR } from './LoginRequired'
 import { SelectedProject } from './selected-project/SelectedProject'
 
-export const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "/create-user",
-    element: <CreateUser />
-  },
-  // All Routes LoginRequired from here
-  {
-    path: "/",
-    element: <LoginRequired><SelectedProject /></LoginRequired>
-  },
-  {
-    path: "/create-project",
-    element: <LoginRequired><CreateProject /></LoginRequired>
-  }
-])
+export const RouteTable = () => {
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/create-user" element={<CreateUser />} />
+      <Route path="/" element={<LR><SelectedProject /></LR>} />
+      <Route path="/create-project" element={<LR><CreateProject /></LR>} />
+      <Route path="*" element={<Box m={2}>Page Not Found</Box>} />
+    </Routes>
+  )
+}

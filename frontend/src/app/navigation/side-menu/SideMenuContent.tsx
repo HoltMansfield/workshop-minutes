@@ -1,4 +1,5 @@
-import * as React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ListSubheader from '@mui/material/ListSubheader'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -11,14 +12,22 @@ import AddBoxIcon from '@mui/icons-material/AddBox'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import LabelImportantIcon from '@mui/icons-material/LabelImportant'
-import { Link } from 'react-router-dom'
+import { useApplicationState } from '../../../hooks/state/useApplicationState'
+
 
 export const SideMenuContent = () => {
-  const [open, setOpen] = React.useState(true)
-
+  const [projectListOpen, setProjectListOpen] = useState(true)
+  const navigate = useNavigate()
+  const { sideMenuOpen, setSideMenuOpen } = useApplicationState()
+  
   const handleClick = () => {
-    setOpen(!open)
+    setProjectListOpen(!open)
   }
+
+  const handleNavigate = (url: string) => {
+    setSideMenuOpen(false)
+    navigate(url)
+  } 
 
   return (
     <List
@@ -31,30 +40,26 @@ export const SideMenuContent = () => {
         </ListSubheader>
       }
     >
-      {/* <Link to="create-project" style={{ textDecoration: 'none '}}> */}
-        <ListItemButton>
-          <ListItemIcon>
-            <AddBoxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Create Project" />
-        </ListItemButton>
-      {/* </Link>
-      <Link to="/find-project"  style={{ textDecoration: 'none '}}> */}
-        <ListItemButton>
-          <ListItemIcon>
-            <SearchIcon />
-          </ListItemIcon>
-          <ListItemText primary="FindProject" />
-        </ListItemButton>
-      {/* </Link> */}
+      <ListItemButton onClick={() => handleNavigate('/create-project')}>
+        <ListItemIcon>
+          <AddBoxIcon />
+        </ListItemIcon>
+        <ListItemText primary="Create Project" />
+      </ListItemButton>
+      <ListItemButton onClick={() => handleNavigate('/find-project')}>
+        <ListItemIcon>
+          <SearchIcon />
+        </ListItemIcon>
+        <ListItemText primary="FindProject" />
+      </ListItemButton>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
           <InboxIcon />
         </ListItemIcon>
         <ListItemText primary="Select Project" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {projectListOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={projectListOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
