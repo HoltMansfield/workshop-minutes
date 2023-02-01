@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import { useEffect } from "react"
 import { useFindProject } from "../../DMS/hooks/logic/project/useFindProject"
 import { useProjectState } from "../../hooks/state/useProjectState"
 
@@ -10,10 +11,11 @@ export const LoadSelectedProject = ({ selectedProjectId }: LoadSelectedProjectPr
   const { status, error, data } = useFindProject({ _id: { $oid: selectedProjectId }})
   const { setSelectedProject } = useProjectState()
 
-  if (data) {
-    setSelectedProject(data)
-    return null
-  }
+  useEffect(() => {
+    if (data) {
+      setSelectedProject(data)
+    }
+  }, [data])
 
   return (
     <Box>

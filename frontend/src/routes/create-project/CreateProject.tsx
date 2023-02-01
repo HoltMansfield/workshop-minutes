@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useCreateProject } from "../../DMS/hooks/logic/project/useCreateProject"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
@@ -11,6 +12,22 @@ export const CreateProject = () => {
   const { setSelectedProject, setSelectedProjectId, projects, setProjects } = useProjectState()
   const {loggedInUser } = useApplicationState()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      mutation.reset()
+      // default to selecting this project
+      setSelectedProject(mutation.data)
+      setSelectedProjectId(mutation?.data?._id)
+
+      const existingProjects = projects ? [...projects] : []
+      const newProjects = [...existingProjects, mutation.data]
+      // update side nav
+      setProjects(newProjects)
+
+      navigate('/')
+    }
+  },[mutation])
 
   const handleCreateProject = (name: string, status: string) => {
     const userId = loggedInUser?._id || ''
@@ -27,12 +44,6 @@ export const CreateProject = () => {
   }
 
   if (mutation.isSuccess) {
-    setSelectedProject(mutation.data)
-    setSelectedProjectId(mutation.data._id)
-    //@ts-ignore
-    setProjects([...projects, mutation.data])
-    navigate('/')
-
     return <div>Project added!</div>
   }
 

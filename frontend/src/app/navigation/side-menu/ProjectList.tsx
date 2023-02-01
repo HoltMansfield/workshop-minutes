@@ -20,7 +20,7 @@ export const ProjectList = () => {
   const renderProjects = () => {
     return projects?.map(project => {
       return (
-        <ListItemButton sx={{ pl: 4 }} onClick={() => handleSelectProject(project)}>
+        <ListItemButton key={project._id} sx={{ pl: 4 }} onClick={() => handleSelectProject(project)}>
           <ListItemIcon>
             <LabelImportantIcon />
           </ListItemIcon>
