@@ -22,7 +22,7 @@ export const SideMenuContent = () => {
   const { sideMenuOpen, setSideMenuOpen, loggedInUser } = useApplicationState()
   
   const handleClick = () => {
-    setProjectListOpen(!open)
+    setProjectListOpen(!projectListOpen)
   }
 
   const handleNavigate = (url: string) => {
