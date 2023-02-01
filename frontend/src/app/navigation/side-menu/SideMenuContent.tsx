@@ -13,12 +13,13 @@ import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import LabelImportantIcon from '@mui/icons-material/LabelImportant'
 import { useApplicationState } from '../../../hooks/state/useApplicationState'
+import { NotLoggedIn } from './NotLoggedIn'
 
 
 export const SideMenuContent = () => {
   const [projectListOpen, setProjectListOpen] = useState(true)
   const navigate = useNavigate()
-  const { sideMenuOpen, setSideMenuOpen } = useApplicationState()
+  const { sideMenuOpen, setSideMenuOpen, loggedInUser } = useApplicationState()
   
   const handleClick = () => {
     setProjectListOpen(!open)
@@ -27,7 +28,9 @@ export const SideMenuContent = () => {
   const handleNavigate = (url: string) => {
     setSideMenuOpen(false)
     navigate(url)
-  } 
+  }
+
+  if (!loggedInUser) return <NotLoggedIn handleNavigate={handleNavigate} />
 
   return (
     <List

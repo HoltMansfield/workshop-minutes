@@ -5,14 +5,14 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import { useLoggedInUser } from '../hooks/state/useLoggedInUser'
 import { useDmsUser } from '../DMS/hooks/api/useDmsUser'
 import { useApplicationState } from '../hooks/state/useApplicationState'
+import { useNavigate } from 'react-router-dom'
 
 export const AppBar = () => {
-  const { loggedInUser, setLoggedInUser } = useLoggedInUser()
+  const { sideMenuOpen, setSideMenuOpen, loggedInUser, setLoggedInUser } = useApplicationState()
   const { logout } = useDmsUser()
-  const { sideMenuOpen, setSideMenuOpen } = useApplicationState()
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
@@ -28,19 +28,22 @@ export const AppBar = () => {
   return (
     <MuiAppBar position="static">
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-          onClick={() => setSideMenuOpen(!sideMenuOpen)}
-        >
-          <MenuIcon />
-        </IconButton>
+        {loggedInUser && (
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={() => setSideMenuOpen(!sideMenuOpen)}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           WorkShop Minutes
         </Typography>
+        {!loggedInUser && <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>}
         {loggedInUser && <Button color="inherit" onClick={handleLogout}>Logout</Button>}
       </Toolbar>
     </MuiAppBar>

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom"
-import { useLoggedInUser } from "../../hooks/state/useLoggedInUser"
+import { useApplicationState } from "../../hooks/state/useApplicationState"
 
 export const useCreateUser = () => {
-  const { setLoggedInUser } = useLoggedInUser()
+  const { setLoggedInUser } = useApplicationState()
   const navigate = useNavigate()
   const base = import.meta.env.VITE_API_URL
 

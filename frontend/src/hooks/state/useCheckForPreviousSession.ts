@@ -1,8 +1,8 @@
 import { useEffect } from "react"
-import { useLoggedInUser } from "./useLoggedInUser"
+import { useApplicationState } from "./useApplicationState"
 
 export const useCheckForPreviousSession = () => {
-  const { setLoggedInUser } = useLoggedInUser()
+  const { setLoggedInUser } = useApplicationState()
   const base = import.meta.env.VITE_API_URL
 
   useEffect(() => {
