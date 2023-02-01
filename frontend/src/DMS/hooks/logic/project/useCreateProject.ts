@@ -18,10 +18,6 @@ export const useCreateProject = () => {
 
     return { ...document, _id }
   })
-   
-  // const mutation = useMutation<Project, HttpError, Project, () => void>(document => {
-  //   return _request(document)
-  // })
 
   return {
     mutation

@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai'
-import { User } from '@workshop-minutes/data-model'
+import { User } from '../../DMS/collections/user'
 
 const userAtom = atom<User | null | undefined>(undefined)
 

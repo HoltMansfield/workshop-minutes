@@ -1,6 +1,7 @@
 import { Box } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useCreateProject } from "../../DMS/hooks/logic/project/useCreateProject"
+import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { ProjectForm } from "./ProjectForm"
 
@@ -8,11 +9,13 @@ import { ProjectForm } from "./ProjectForm"
 export const CreateProject = () => {
   const { mutation } = useCreateProject()
   const { setSelectedProject, setSelectedProjectId } = useProjectState()
+  const {loggedInUser } = useApplicationState()
   const navigate = useNavigate()
 
   const handleCreateProject = (name: string, status: string) => {
+    const userId = loggedInUser?._id || ''
     // ToDo check projects array for existing project with same name
-    mutation.mutate({ name, status })
+    mutation.mutate({ name, status, userId })
   }
 
   if (mutation.isLoading) {

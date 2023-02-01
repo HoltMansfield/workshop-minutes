@@ -11,9 +11,9 @@ import SearchIcon from '@mui/icons-material/Search'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
-import LabelImportantIcon from '@mui/icons-material/LabelImportant'
 import { useApplicationState } from '../../../hooks/state/useApplicationState'
 import { NotLoggedIn } from './NotLoggedIn'
+import { ProjectList } from './ProjectList'
 
 
 export const SideMenuContent = () => {
@@ -63,14 +63,7 @@ export const SideMenuContent = () => {
         {projectListOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={projectListOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <LabelImportantIcon />
-            </ListItemIcon>
-            <ListItemText primary="Rolling Tray" />
-          </ListItemButton>
-        </List>
+        <ProjectList userId={loggedInUser._id} />
       </Collapse>
     </List>
   )

@@ -1,10 +1,9 @@
-// ToDo
-import { User } from "@workshop-minutes/data-model"
-
-// ToDo
-const base = import.meta.env.VITE_API_URL
+import { User } from "../../collections/user"
+import { getBaseUrl } from "./get-base-url"
 
 export const useDmsUser = () => {
+  const base = getBaseUrl()
+
   const login = async (email: string, password: string): Promise<User> => {
     const request = {
       email,

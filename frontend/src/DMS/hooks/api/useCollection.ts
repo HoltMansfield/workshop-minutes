@@ -1,43 +1,42 @@
-const base = import.meta.env.VITE_API_URL
+import { getBaseUrl } from "./get-base-url"
+import { useHttp } from "./useHttp"
+
 
 export const useCollection = (collectionName: string) => {
-  const insertOne = async (document: object): Promise<any> => {  
-    const result = await fetch(`${base}/data-api`, {
-      method: 'post',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        action: "insertOne",
-        collection: collectionName,
-        document: document
-      })
+  const base = getBaseUrl()
+  const { post } = useHttp()
+
+  const insertOne = async (document: object): Promise<any> => {
+    return post('data-api', {
+      action: 'insertOne',
+      collection: collectionName,
+      document: document
     })
-    return result.json()
   }
 
-  const findOne = async (query: object): Promise<any> => {  
-    const result = await fetch(`${base}/data-api`, {
-      method: 'post',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        action: "findOne",
-        collection: collectionName,
-        filter: query
-      })
+  const findOne = async (query: object): Promise<any> => {
+    const response = await post('data-api',{
+      action: 'findOne',
+      collection: collectionName,
+      filter: query
     })
-    const json = await result.json()
-    return json?.document
+
+    return response?.document
+  }
+
+  const find = async (query: object): Promise<any> => {
+    const response = await post('data-api',{
+      action: 'find',
+      collection: collectionName,
+      filter: query
+    })
+
+    return response?.documents
   }
 
   return {
     insertOne,
-    findOne
+    findOne,
+    find
   } as const
 }
