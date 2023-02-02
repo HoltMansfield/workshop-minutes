@@ -6,6 +6,7 @@ import { MeatBallMenu } from "../../app/components/MeatballMenu"
 import { Project } from "../../DMS/collections/project"
 import { useDeleteProject } from "../../DMS/hooks/collections/project/useDeleteProject"
 import { useProjectState } from "../../hooks/state/useProjectState"
+import { useToaster } from "../../hooks/useToaster"
 
 interface HeaderProps {
   selectedProject: Project
@@ -14,16 +15,15 @@ interface HeaderProps {
 export const Header = ({ selectedProject }: HeaderProps) => {
   const { mutation } = useDeleteProject()
   const { setSelectedProject, setSelectedProjectId } = useProjectState()
+  const { displayMutationError } = useToaster()
 
   const handleDelete = () => {
     mutation.mutate({ _id: { $oid: selectedProject._id  } }, {
-      onError: (error, variables, context) => {
-        //ToDo
-      },
       onSuccess: () => {
         setSelectedProject(null)
         setSelectedProjectId()
-      }
+      },
+      onError: displayMutationError
     })
   }
 
