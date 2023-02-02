@@ -1,6 +1,8 @@
 import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { RenderHttpError } from "../../app/components/RenderHttpError"
+import { Spinner } from "../../app/Spinner"
 import { useCreateProject } from "../../DMS/hooks/collections/project/useCreateProject"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { useProjectState } from "../../hooks/state/useProjectState"
@@ -35,15 +37,7 @@ export const CreateProject = () => {
   }
 
   if (mutation.isLoading) {
-    return <div>Saving...</div>
-  }
-
-  if (mutation.isError) {
-    return <div>An error occurred: {mutation.error.message}</div>
-  }
-
-  if (mutation.isSuccess) {
-    return <div>Project added!</div>
+    return <Spinner />
   }
 
   return (
@@ -52,6 +46,9 @@ export const CreateProject = () => {
       flexDirection: 'column',
       flexGrow: 1
     }}>
+      {mutation.isError && (
+        <RenderHttpError message={mutation.error.message} />
+      )}
       <ProjectForm handleCreateProject={handleCreateProject} />
     </Box>
   )
