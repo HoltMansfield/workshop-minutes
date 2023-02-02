@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { Project } from '../../../collections/project'
-import { HttpError } from '../../../../types/api'
+import { HttpError } from '../../../types/api'
 import { useCollection } from "../../api/useCollection"
 
 export const useFindProjects = (query: object) => {

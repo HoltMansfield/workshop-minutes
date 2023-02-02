@@ -15,7 +15,6 @@ export const CreateProject = () => {
 
   useEffect(() => {
     if (mutation.isSuccess) {
-      mutation.reset()
       // default to selecting this project
       setSelectedProject(mutation.data)
       setSelectedProjectId(mutation?.data?._id)

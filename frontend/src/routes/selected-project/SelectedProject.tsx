@@ -1,4 +1,6 @@
+import { Box } from "@mui/material"
 import { useProjectState } from "../../hooks/state/useProjectState"
+import { Header } from "./Header"
 import { LoadSelectedProject } from "./LoadSelectedProject"
 import { NoContent } from "./NoContent"
 
@@ -15,8 +17,8 @@ export const SelectedProject = () => {
   }
 
   return (
-    <div>
-      {selectedProject.name}
-    </div>
+    <Box display="flex" flexDirection="column" flexGrow={1}>
+      <Header selectedProject={selectedProject} />
+    </Box>
   )
 }
