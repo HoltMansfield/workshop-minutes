@@ -1,5 +1,6 @@
 import { Box } from "@mui/material"
 import { useEffect } from "react"
+import { Spinner } from "../../app/Spinner"
 import { useFindProject } from "../../DMS/hooks/logic/project/useFindProject"
 import { useProjectState } from "../../hooks/state/useProjectState"
 
@@ -17,9 +18,12 @@ export const LoadSelectedProject = ({ selectedProjectId }: LoadSelectedProjectPr
     }
   }, [data])
 
+  if (status === 'loading') {
+    return <Spinner />
+  }
+
   return (
     <Box>
-      <div>status: { status }</div>
       { error &&  <div>error: { error.message }</div>}
     </Box>
   )

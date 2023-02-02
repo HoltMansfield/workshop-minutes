@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from '@mui/material'
+import { Box, CssBaseline, ThemeProvider } from '@mui/material'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useMaterialTheme } from '../hooks/useMaterialTheme'
@@ -18,7 +18,7 @@ function App() {
 
   // Undefined on first load | null if not logged in | object if logged in
   if (loggedInUser === undefined) {
-    return <Spinner />
+    return <Box display="flex" mt={8}><Spinner /></Box>
   }
 
   return (

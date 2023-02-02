@@ -14,7 +14,6 @@ interface HeaderProps {
 export const Header = ({ selectedProject }: HeaderProps) => {
   const { mutation } = useDeleteProject()
   const { setSelectedProject, setSelectedProjectId } = useProjectState()
-  const navigate = useNavigate()
 
   const handleDelete = () => {
     mutation.mutate({ _id: { $oid: selectedProject._id  } }, {
@@ -24,7 +23,6 @@ export const Header = ({ selectedProject }: HeaderProps) => {
       onSuccess: () => {
         setSelectedProject(null)
         setSelectedProjectId()
-        navigate('/select-project')
       }
     })
   }
