@@ -1,6 +1,8 @@
 import { Box, CssBaseline, ThemeProvider } from '@mui/material'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { useMaterialTheme } from '../hooks/useMaterialTheme'
 import { RouteTable } from '../routes/RouteTable'
 import { PageLayout } from './PageLayout'
@@ -27,6 +29,16 @@ function App() {
         <BrowserRouter>
           <>
             <CssBaseline />
+            <ToastContainer position="top-center"
+              autoClose={3500}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark" />
             <FetchProjects />
             <PageLayout>
               <RouteTable />

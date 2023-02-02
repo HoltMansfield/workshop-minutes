@@ -1,28 +1,29 @@
 import MuiAppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import { useDmsUser } from '../DMS/hooks/api/useDmsUser'
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom'
 import { useApplicationState } from '../hooks/state/useApplicationState'
 import { useNavigate } from 'react-router-dom'
+import { useLogout } from '../DMS/hooks/collections/user/useLogout'
+import { useToaster } from '../hooks/useToaster'
 
 export const AppBar = () => {
   const { sideMenuOpen, setSideMenuOpen, loggedInUser, setLoggedInUser } = useApplicationState()
-  const { logout } = useDmsUser()
+  const { mutation } = useLogout()
   const navigate = useNavigate()
+  const { displayMutationError } = useToaster()
 
   const handleLogout = async () => {
-    try {
-      await logout()
-      setLoggedInUser(null)
-      location.reload()
-    } catch (error) {
-      // ToDo
-      alert(error)
-    }
+    mutation.mutate(null, {
+      onSuccess: () => {
+        setLoggedInUser(null)
+        location.reload()
+      },
+      onError: displayMutationError
+    })
   }
 
   return (
@@ -43,8 +44,9 @@ export const AppBar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           WorkShop Minutes
         </Typography>
-        {!loggedInUser && <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>}
-        {loggedInUser && <Button color="inherit" onClick={handleLogout}>Logout</Button>}
+        {!loggedInUser && !mutation.isLoading && <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>}
+        {loggedInUser && !mutation.isLoading && <Button color="inherit" onClick={handleLogout}>Logout</Button>}
+        {mutation.isLoading && <HourglassBottomIcon />}
       </Toolbar>
     </MuiAppBar>
   )

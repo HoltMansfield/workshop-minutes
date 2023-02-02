@@ -11,13 +11,8 @@ interface LoginAttempt {
 export const useLogin = () => {
   const { login } = useDmsUser()
 
-  const _request = async (email: string, password: string): Promise<User> => {
-    const result = await login(email, password)
-    return result as User 
-  }
- 
   const mutation = useMutation<User, HttpError , LoginAttempt>((attempt: LoginAttempt) => {
-    return _request(attempt.email, attempt.password)
+    return login(attempt.email, attempt.password)
   })
 
   return {
