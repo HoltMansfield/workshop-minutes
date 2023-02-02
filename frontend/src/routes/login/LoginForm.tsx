@@ -2,15 +2,13 @@ import { Box, Button, TextField } from "@mui/material"
 import { useForm } from "react-hook-form"
 import { FormWrapper } from "../../app/forms/FormWrapper"
 import { emailRegex } from "../../app/forms/regex"
-import { useLogin } from "./useLogin"
 
 interface LoginFormProps {
   handleLogin: (email: string, password: string) => void
 }
 
-export const LoginForm = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm()
-  const { handleLogin } = useLogin()
+export const LoginForm = ({ handleLogin }: LoginFormProps) => {
+  const { register, handleSubmit, formState: { errors } } = useForm()
 
   const onSubmit = (data: any) => {
     handleLogin(data.email, data.password)

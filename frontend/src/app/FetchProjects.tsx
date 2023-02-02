@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useFindProjects } from "../DMS/hooks/logic/project/useFindProjects"
+import { useFindProjects } from "../DMS/hooks/collections/project/useFindProjects"
 import { useApplicationState } from "../hooks/state/useApplicationState"
 import { useProjectState } from "../hooks/state/useProjectState"
 

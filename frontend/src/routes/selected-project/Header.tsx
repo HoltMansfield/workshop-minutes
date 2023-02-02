@@ -4,7 +4,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { useNavigate } from "react-router-dom"
 import { MeatBallMenu } from "../../app/components/MeatballMenu"
 import { Project } from "../../DMS/collections/project"
-import { useDeleteProject } from "../../DMS/hooks/logic/project/useDeleteProject"
+import { useDeleteProject } from "../../DMS/hooks/collections/project/useDeleteProject"
 import { useProjectState } from "../../hooks/state/useProjectState"
 
 interface HeaderProps {

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useCreateProject } from "../../DMS/hooks/logic/project/useCreateProject"
+import { useCreateProject } from "../../DMS/hooks/collections/project/useCreateProject"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { ProjectForm } from "./ProjectForm"
