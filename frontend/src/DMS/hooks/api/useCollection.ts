@@ -34,9 +34,20 @@ export const useCollection = (collectionName: string) => {
     return response?.documents
   }
 
+  const deleteOne = async (query: object): Promise<any> => {
+    const response = await post('data-api',{
+      action: 'deleteOne',
+      collection: collectionName,
+      filter: query
+    })
+
+    return response?.documents
+  }
+
   return {
     insertOne,
     findOne,
-    find
+    find,
+    deleteOne
   } as const
 }

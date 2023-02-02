@@ -1,16 +1,36 @@
 import { Box, ListItemIcon, ListItemText, MenuItem } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { useNavigate } from "react-router-dom"
 import { MeatBallMenu } from "../../app/components/MeatballMenu"
 import { Project } from "../../DMS/collections/project"
+import { useDeleteProject } from "../../DMS/hooks/logic/project/useDeleteProject"
+import { useProjectState } from "../../hooks/state/useProjectState"
 
 interface HeaderProps {
   selectedProject: Project
 }
 
 export const Header = ({ selectedProject }: HeaderProps) => {
+  const { mutation } = useDeleteProject()
+  const { setSelectedProject, setSelectedProjectId } = useProjectState()
+  const navigate = useNavigate()
+
+  const handleDelete = () => {
+    mutation.mutate({ _id: { $oid: selectedProject._id  } }, {
+      onError: (error, variables, context) => {
+        //ToDo
+      },
+      onSuccess: () => {
+        setSelectedProject(null)
+        setSelectedProjectId()
+        navigate('/select-project')
+      }
+    })
+  }
+
   const items = [
-    <MenuItem key="delete">
+    <MenuItem key="delete" onClick={handleDelete}>
       <ListItemIcon>
         <DeleteIcon fontSize="small" />
       </ListItemIcon>
