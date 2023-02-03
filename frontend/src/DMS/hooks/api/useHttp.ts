@@ -22,7 +22,7 @@ export const useHttp = () => {
       throw new Error('404')
     }
 
-    return result
+    throw new Error(result.statusText)
   }
 
   return {

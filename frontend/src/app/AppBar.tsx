@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom'
 import { useApplicationState } from '../hooks/state/useApplicationState'
 import { useNavigate } from 'react-router-dom'
-import { useLogout } from '../DMS/hooks/collections/user/useLogout'
+import { useLogout } from '../DMS/hooks/api/collections/user/useLogout'
 import { useToaster } from '../hooks/useToaster'
 
 export const AppBar = () => {

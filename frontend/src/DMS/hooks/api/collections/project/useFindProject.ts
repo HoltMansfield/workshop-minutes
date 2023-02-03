@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
-import { Project } from '../../../collections/project'
-import { HttpError } from '../../../types/api'
-import { useCollection } from "../../api/useCollection"
+import { Project } from '../../../../collections/project'
+import { HttpError } from '../../../../types/api'
+import { useCollection } from "../../useCollection"
 
 export const useFindProject = (query: object) => {
   const { findOne } = useCollection('projects')

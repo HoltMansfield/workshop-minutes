@@ -44,10 +44,22 @@ export const useCollection = (collectionName: string) => {
     return response?.documents
   }
 
+  const updateOne = async (query: object, update: object): Promise<any> => {
+    const response = await post('data-api',{
+      action: 'updateOne',
+      collection: collectionName,
+      filter: query,
+      update: update
+    })
+
+    return response
+  }
+
   return {
     insertOne,
     findOne,
     find,
-    deleteOne
+    deleteOne,
+    updateOne
   } as const
 }

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import { useEffect } from "react"
 import { Spinner } from "../../app/Spinner"
-import { useFindProject } from "../../DMS/hooks/collections/project/useFindProject"
+import { useFindProject } from "../../DMS/hooks/api/collections/project/useFindProject"
 import { useProjectState } from "../../hooks/state/useProjectState"
 
 interface LoadSelectedProjectProps {
