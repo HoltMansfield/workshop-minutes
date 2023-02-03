@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import SearchIcon from '@mui/icons-material/Search'
+import SettingsIcon from '@mui/icons-material/Settings'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
@@ -49,6 +50,12 @@ export const SideMenuContent = () => {
         </ListItemIcon>
         <ListItemText primary="Create Project" />
       </ListItemButton>
+      <ListItemButton onClick={() => handleNavigate('/settings')}>
+        <ListItemIcon>
+          <SettingsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Settings" />
+      </ListItemButton>
       <ListItemButton onClick={() => handleNavigate('/find-project')}>
         <ListItemIcon>
           <SearchIcon />
@@ -63,7 +70,7 @@ export const SideMenuContent = () => {
         {projectListOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={projectListOpen} timeout="auto" unmountOnExit>
-        <ProjectList userId={loggedInUser._id} />
+        <ProjectList />
       </Collapse>
     </List>
   )
