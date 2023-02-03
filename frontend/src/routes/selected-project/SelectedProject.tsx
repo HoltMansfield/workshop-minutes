@@ -3,6 +3,7 @@ import { useProjectState } from "../../hooks/state/useProjectState"
 import { Header } from "./Header"
 import { LoadSelectedProject } from "./LoadSelectedProject"
 import { NoContent } from "./NoContent"
+import { ProjectStatus } from "./ProjectStatus"
 
 
 export const SelectedProject = () => {
@@ -19,6 +20,7 @@ export const SelectedProject = () => {
   return (
     <Box display="flex" flexDirection="column" flexGrow={1}>
       <Header selectedProject={selectedProject} />
+      <ProjectStatus selectedProject={selectedProject} />
     </Box>
   )
 }
