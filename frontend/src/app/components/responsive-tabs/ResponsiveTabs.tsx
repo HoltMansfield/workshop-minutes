@@ -1,5 +1,4 @@
 import { MenuItem, Select, Tab, Tabs, useMediaQuery } from '@mui/material'
-import React, { FunctionComponent } from 'react'
 
 
 interface ResponsiveTabsProps {
@@ -10,12 +9,12 @@ interface ResponsiveTabsProps {
   orientation?: 'vertical' | 'horizontal'
 }
 
-export const ResponsiveTabs: FunctionComponent<ResponsiveTabsProps> = ({
+export const ResponsiveTabs = ({
   tabs,
   selectedTab,
   setSelectedTab,
   orientation = 'horizontal'
-}) => {
+}: ResponsiveTabsProps) => {
   const isDevice = !useMediaQuery('(min-width: 768px)')
 
   if (isDevice) {
