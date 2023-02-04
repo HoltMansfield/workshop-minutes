@@ -8,7 +8,7 @@ export const useResponsiveTabs = (
 ) => {
   const [selectedTab, setSelectedTab] = useState<number>(defaultTab)
 
-  const UiComponent = useCallback(() => {
+  const TabsOrSelect = useCallback(() => {
     return (
       <ResponsiveTabs
         tabs={tabs}
@@ -20,7 +20,7 @@ export const useResponsiveTabs = (
   }, [selectedTab, tabs])
 
   return {
-    UiComponent,
+    TabsOrSelect,
     selectedTab,
     setSelectedTab
   } as const

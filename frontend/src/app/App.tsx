@@ -10,6 +10,7 @@ import { Spinner } from './Spinner'
 import { useCheckForPreviousSession } from '../hooks/state/useCheckForPreviousSession'
 import { useApplicationState } from '../hooks/state/useApplicationState'
 import { FetchProjects } from './FetchProjects'
+import { FetchProjectStatuses } from './FetchProjectStatuses'
 
 const queryClient = new QueryClient()
 
@@ -29,17 +30,9 @@ function App() {
         <BrowserRouter>
           <>
             <CssBaseline />
-            <ToastContainer position="top-center"
-              autoClose={3500}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark" />
+            <ToastContainer />
             <FetchProjects />
+            <FetchProjectStatuses />
             <PageLayout>
               <RouteTable />
             </PageLayout>
