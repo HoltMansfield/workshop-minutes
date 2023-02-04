@@ -6,19 +6,14 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
+import { UseGetStringDialogProps } from './useGetStringDialog'
 
-interface GetStringProps {
-  title: string
-  fieldTitle: string
-  okButtonTitle: string
-  text: string
-  value: string
+export interface GetStringDialogProps extends UseGetStringDialogProps {
   open: boolean
   setOpen: (newState: boolean) => void
-  onOkClicked: (newValue: string) => void
 }
 
-export const GetStringDialog = ({ title, fieldTitle, okButtonTitle, text, value, open, setOpen, onOkClicked }: GetStringProps) => {
+export const GetStringDialog = ({ title, fieldTitle, okButtonTitle, text, value, open, setOpen, onOkClicked }: GetStringDialogProps) => {
   const [fieldValue, setFieldValue] = useState(value || '')
 
   const handleCancel = () => {
