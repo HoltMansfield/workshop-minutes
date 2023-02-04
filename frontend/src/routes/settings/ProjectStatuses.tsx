@@ -10,20 +10,38 @@ import { useToaster } from "../../hooks/useToaster"
 import { MeatBallMenu } from "../../app/components/MeatballMenu"
 import { useGetStringDialog } from "../../app/dialogs/useGetStringDialog"
 import { ProjectStatus } from "../../DMS/collections/projectStatus"
+import { useUpdateProjectStatus } from "../../DMS/hooks/api/collections/project-status/useUpdateProjectStatus"
 
 interface ProjectStatusesProps {
   loggedInUser: User
 }
 
 export const ProjectStatuses = ({ loggedInUser }: ProjectStatusesProps) => {
-  const { mutation } = useCreateProjectStatus()
+  const { mutation: createMutation } = useCreateProjectStatus()
+  const { mutation: updateMutation } = useUpdateProjectStatus()
   const { projectStatuses, setProjectStatuses } = useProjectState()
   const [newStatus, setNewStatus] = useState<string>()
   const { displayMutationError } = useToaster()
   const [selectedProjectStatus, setSelectedProjectStatus] = useState<ProjectStatus | null>(null)
 
-  const handleRenameOk = (newValue: string) => {
-    debugger
+  const handleRenameOk = (newName: string) => {
+    const updateRequest = {
+      query: { _id: { $oid: selectedProjectStatus?._id } },
+      update: {
+        "$set": {
+          name: newName
+        }
+      }
+    }
+    updateMutation.mutate(updateRequest, {
+      onSuccess: () => {
+        const updatedProjectStatus = {...selectedProjectStatus as ProjectStatus, name: newName }
+        setSelectedProjectStatus(updatedProjectStatus)
+        const statuses = projectStatuses?.filter(s => s._id !== selectedProjectStatus?._id)
+        setProjectStatuses([...statuses as ProjectStatus[], updatedProjectStatus])
+      },
+      onError: displayMutationError
+    })
   }
 
   const { setGetStringDialogOpen, GetStringDialog } = useGetStringDialog({
@@ -47,7 +65,7 @@ export const ProjectStatuses = ({ loggedInUser }: ProjectStatusesProps) => {
   }
 
   const handleAddStatus = () => {
-    mutation.mutate({ userId: String(loggedInUser._id), name: String(newStatus) }, {
+    createMutation.mutate({ userId: String(loggedInUser._id), name: String(newStatus) }, {
       onSuccess: (data) => {
         const existingStatuses = projectStatuses ? [...projectStatuses] : []
         setProjectStatuses([...existingStatuses, data])
@@ -61,7 +79,11 @@ export const ProjectStatuses = ({ loggedInUser }: ProjectStatusesProps) => {
       return null
     }
 
-    return projectStatuses.map(status => {
+    return projectStatuses.sort((a, b) => {
+        var textA = a.name.toUpperCase();
+        var textB = b.name.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      }).map(status => {
       const items = [
         <MenuItem key="rename" onClick={getRenameHandler(status)}>
           <ListItemIcon>
