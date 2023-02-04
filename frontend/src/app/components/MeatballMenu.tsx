@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { IconButton, Menu, MenuItem } from "@mui/material"
+import { Box, IconButton, Menu, MenuItem } from "@mui/material"
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 interface MeatBallMenuProps {
@@ -17,6 +17,10 @@ export const MeatBallMenu = ({ items }: MeatBallMenuProps) => {
     setAnchorEl(null)
   }
 
+  const handleAnyClick = () => {
+    setAnchorEl(null)
+  }
+
   return (
     <>
       <IconButton onClick={handleClick}>
@@ -30,6 +34,7 @@ export const MeatBallMenu = ({ items }: MeatBallMenuProps) => {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        onClick={handleAnyClick}
       >
         {items}
       </Menu>
