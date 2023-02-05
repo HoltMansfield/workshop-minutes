@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import { useResponsiveTabs } from "../../app/components/responsive-tabs/useResponsiveTabs"
-import { ProjectStatuses } from "./ProjectStatuses"
-import { ProjectSteps } from "./ProjectSteps"
+import { ProjectStatuses } from "./project-statuses/ProjectStatuses"
+import { ProjectSteps } from "./project-steps/ProjectSteps"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { User } from "../../DMS/collections/user"
 
