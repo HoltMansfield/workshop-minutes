@@ -18,7 +18,7 @@ interface ProjectStatusProps {
 
 export const ProjectStatus = ({ selectedProject }: ProjectStatusProps) => {
   const { mutation } = useUpdateProject()
-  const { setSelectedProject } = useProjectState()
+  const { setSelectedProject, projectStatuses } = useProjectState()
   const { displayMutationError } = useToaster()
 
   const handleStatusChange = (event: SelectChangeEvent<string>, child: React.ReactNode) => {
@@ -39,16 +39,28 @@ export const ProjectStatus = ({ selectedProject }: ProjectStatusProps) => {
     })
   }
 
+  const renderStatuses = () => {
+    return projectStatuses?.map(({ name, _id }) => {
+      return (
+        <MenuItem value={name}>{name}</MenuItem>
+      )
+    })
+  }
+
   return (
     <Box display="flex" flexDirection="column" mt={2}>
       <Select value={selectedProject.status} onChange={handleStatusChange}>
-        <MenuItem value="Design">Design</MenuItem>
-        <MenuItem value="Gathering Materials">Gathering Materials</MenuItem>
-        <MenuItem value="Build">Build</MenuItem>
-        <MenuItem value="Sand">Sand</MenuItem>
-        <MenuItem value="Finishing">Finishing</MenuItem>
-        <MenuItem value="Complete">Complete</MenuItem>
-        <MenuItem value="Delivered">Delivered</MenuItem>
+        {projectStatuses ? renderStatuses() : (
+          <>
+            <MenuItem value="Design">Design</MenuItem>
+            <MenuItem value="Gathering Materials">Gathering Materials</MenuItem>
+            <MenuItem value="Build">Build</MenuItem>
+            <MenuItem value="Sand">Sand</MenuItem>
+            <MenuItem value="Finishing">Finishing</MenuItem>
+            <MenuItem value="Complete">Complete</MenuItem>
+            <MenuItem value="Delivered">Delivered</MenuItem>
+          </>
+        )}
       </Select>
     </Box>
   )

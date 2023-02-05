@@ -18,7 +18,13 @@ export const useProjectState = () => {
   const [selectedProjectId, setSelectedProjectId] = useAtom(selectedProjectIdAtom)
 
   const [projects, setProjects] = useAtom(projectsAtom)
-  const [projectStatuses, setProjectStatuses] = useAtom(projectStatusesAtom)
+  const [projectStatuses, _setProjectStatuses] = useAtom(projectStatusesAtom)
+
+  const setProjectStatuses = (newProjectStatuses: ProjectStatus[]) => {
+    const sorted = newProjectStatuses.sort((a, b) => a.sortOrder-b.sortOrder)
+
+    _setProjectStatuses(sorted)
+  }
 
   return {
     selectedProject, setSelectedProject,

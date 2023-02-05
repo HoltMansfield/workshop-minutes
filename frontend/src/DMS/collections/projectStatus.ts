@@ -3,5 +3,5 @@ export interface ProjectStatus {
   userId: string
   name: string
   description?: string
+  sortOrder: number
 }
-
