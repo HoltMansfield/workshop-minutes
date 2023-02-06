@@ -1,14 +1,7 @@
-import { Box, FormHelperText, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent } from "@mui/material"
-import DeleteIcon from '@mui/icons-material/Delete'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { useNavigate } from "react-router-dom"
-import { MeatBallMenu } from "../../app/components/MeatballMenu"
+import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import { Project } from "../../DMS/collections/project"
-import { useDeleteProject } from "../../DMS/hooks/api/collections/project/useDeleteProject"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { useToaster } from "../../hooks/useToaster"
-import { GetStringDialog } from "../../app/dialogs/GetStringDialog"
-import { useState } from "react"
 import { useUpdateProject } from "../../DMS/hooks/api/collections/project/useUpdateProject"
 
 
@@ -42,7 +35,7 @@ export const ProjectStatus = ({ selectedProject }: ProjectStatusProps) => {
   const renderStatuses = () => {
     return projectStatuses?.map(({ name, _id }) => {
       return (
-        <MenuItem value={name}>{name}</MenuItem>
+        <MenuItem key={_id} value={name}>{name}</MenuItem>
       )
     })
   }

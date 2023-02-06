@@ -10,21 +10,26 @@ import { useGetStringDialog } from "../../../app/dialogs/useGetStringDialog"
 import { useUpdateProjectStatus } from "../../../DMS/hooks/api/collections/project-status/useUpdateProjectStatus"
 import { useToaster } from "../../../hooks/useToaster"
 import { useDeleteProjectStatus } from "../../../DMS/hooks/api/collections/project-status/useDeleteProjectStatus"
+import { ServerStates } from "../../../types/application"
 
 interface ProjectStatusMenuFunctionsProps {
   status: ProjectStatus
   selectedProjectStatus: ProjectStatus
   setSelectedProjectStatus: (newProjectStatus: ProjectStatus) => void
-  projectStatuses: ProjectStatus[]
+  projectStatuses: ProjectStatus[],
+  setServerState: (newServerState: ServerStates) => void
 }
 
-export const ProjectStatusMenuFunctions = ({ status, selectedProjectStatus, setSelectedProjectStatus, projectStatuses }: ProjectStatusMenuFunctionsProps) => {
+export const ProjectStatusMenuFunctions = ({
+  status, selectedProjectStatus, setSelectedProjectStatus, projectStatuses, setServerState
+}: ProjectStatusMenuFunctionsProps) =>{
   const { setProjectStatuses } = useProjectState()
   const { mutation: updateMutation } = useUpdateProjectStatus()
   const { mutation: deleteMutation } = useDeleteProjectStatus()
   const { displayMutationError, toastError } = useToaster()
 
   const handleRenameOk = (newName: string) => {
+    setServerState(ServerStates.saving)
     const updateRequest = {
       query: { _id: { $oid: selectedProjectStatus?._id } },
       update: {
@@ -39,8 +44,12 @@ export const ProjectStatusMenuFunctions = ({ status, selectedProjectStatus, setS
         setSelectedProjectStatus(updatedProjectStatus)
         const statuses = projectStatuses?.filter(s => s._id !== selectedProjectStatus?._id)
         setProjectStatuses([...statuses as ProjectStatus[], updatedProjectStatus])
+        setServerState(ServerStates.loaded)
       },
-      onError: displayMutationError
+      onError: (error) => {
+        displayMutationError(error, null, null)
+        setServerState(ServerStates.error)
+      }
     })
   }
 
@@ -55,12 +64,17 @@ export const ProjectStatusMenuFunctions = ({ status, selectedProjectStatus, setS
 
   const getDeleteHandler = (id: string) => {
     return () => {
+      setServerState(ServerStates.saving)
       deleteMutation.mutate({ _id: { $oid: id  } }, {
         onSuccess: () => {
           const editableStatuses = [...projectStatuses].filter(s => s._id !== id)
           updateSortOrder(editableStatuses)
+          setServerState(ServerStates.loaded)
         },
-        onError: displayMutationError
+        onError: (error) => {
+          displayMutationError(error, null, null)
+          setServerState(ServerStates.error)
+        }
       })
     }
   }
@@ -94,10 +108,13 @@ export const ProjectStatusMenuFunctions = ({ status, selectedProjectStatus, setS
     })
 
     try {
+      setServerState(ServerStates.saving)
       await Promise.all(promises)
       setProjectStatuses(projectStatuses)
+      setServerState(ServerStates.loaded)
     } catch (e) {
       toastError('Reorder update failed. Please refresh the page.')
+      setServerState(ServerStates.error)
     }
   }
 

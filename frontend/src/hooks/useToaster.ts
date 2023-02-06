@@ -10,7 +10,7 @@ const OPTIONS = {
   pauseOnFocusLoss: true,
   draggable: true,
   pauseOnHover: true,
-  theme: 'dark'
+  theme: 'light'
 }
 
 export const useToaster = () => {

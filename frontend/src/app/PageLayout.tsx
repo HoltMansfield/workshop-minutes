@@ -1,4 +1,6 @@
-import { Box } from '@mui/material'
+import { Box, LinearProgress } from '@mui/material'
+import { useApplicationState } from '../hooks/state/useApplicationState'
+import { ServerStates } from '../types/application'
 import { AppBar } from './AppBar'
 import { SideMenu } from './navigation/side-menu/SideMenu'
 
@@ -7,6 +9,8 @@ export interface PageLayoutProps {
 }
 
 export const PageLayout = ({ children } : PageLayoutProps) => {
+  const { serverState } = useApplicationState()
+
   return (
     <Box sx={{
       display: 'flex',
@@ -15,6 +19,11 @@ export const PageLayout = ({ children } : PageLayoutProps) => {
       height: '100vh',
     }}>
       <AppBar />
+      <Box height="5px">
+        {serverState === ServerStates.saving && (
+          <LinearProgress color="secondary" />
+        )}
+      </Box>
       <Box display="flex">
         <SideMenu />
       </Box>
