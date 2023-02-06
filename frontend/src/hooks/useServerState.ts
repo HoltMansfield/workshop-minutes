@@ -1,5 +1,6 @@
 import { cyan, grey, red } from "@mui/material/colors"
-import { ServerStates } from "../types/application"
+import { ServerStates } from "src/types/application"
+//import { ServerStates } from "src/types/application"
 
 
 export const useServerState = () => {
