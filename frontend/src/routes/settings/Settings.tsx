@@ -15,7 +15,7 @@ export const Settings = () => {
       <TabsOrSelect />
       <Box display="flex" mt={2}>
         {selectedTab === 0 && <ProjectStatuses loggedInUser={loggedInUser as User} />}
-        {selectedTab === 1 && <ProjectSteps />}
+        {selectedTab === 1 && <ProjectSteps loggedInUser={loggedInUser as User} />}
       </Box>
     </Box>
   )
