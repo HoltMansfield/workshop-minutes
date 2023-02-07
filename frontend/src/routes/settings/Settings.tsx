@@ -4,11 +4,13 @@ import { ProjectStatuses } from "./project-statuses/ProjectStatuses"
 import { ProjectSteps } from "./project-steps/ProjectSteps"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { User } from "../../DMS/collections/user"
+import { useParams } from "react-router-dom"
 
 
 export const Settings = () => {
   const { loggedInUser } = useApplicationState()
-  const { TabsOrSelect, selectedTab } = useResponsiveTabs(['Project Status', 'Project Steps'])
+  let { tabIndex } = useParams()
+  const { TabsOrSelect, selectedTab } = useResponsiveTabs(['Project Status', 'Project Steps'], Number(tabIndex))
 
   return (
     <Box display="flex" flexDirection="column" flexGrow={1}>

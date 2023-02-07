@@ -15,7 +15,7 @@ export const RouteTable = () => {
       <Route path="/create-user" element={<CreateUser />} />
       <Route path="/" element={<LR><SelectedProject /></LR>} />
       <Route path="/create-project" element={<LR><CreateProject /></LR>} />
-      <Route path="/settings" element={<LR><Settings /></LR>} />
+      <Route path="/settings/:tabIndex" element={<LR><Settings /></LR>} />
       <Route path="*" element={<Box m={2}>Page Not Found</Box>} />
     </Routes>
   )

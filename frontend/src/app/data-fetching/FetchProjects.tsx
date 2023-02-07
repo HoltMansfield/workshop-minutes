@@ -1,8 +1,8 @@
 import { useEffect } from "react"
-import { useFindProjects } from "../DMS/hooks/api/collections/project/useFindProjects"
-import { useApplicationState } from "../hooks/state/useApplicationState"
-import { useProjectState } from "../hooks/state/useProjectState"
-import { useToaster } from "../hooks/useToaster"
+import { useFindProjects } from "../../DMS/hooks/api/collections/project/useFindProjects"
+import { useApplicationState } from "../../hooks/state/useApplicationState"
+import { useProjectState } from "../../hooks/state/useProjectState"
+import { useToaster } from "../../hooks/useToaster"
 
 export const FetchProjects = () => {
   const { loggedInUser } = useApplicationState()

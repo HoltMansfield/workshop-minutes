@@ -50,7 +50,7 @@ export const SideMenuContent = () => {
         </ListItemIcon>
         <ListItemText primary="Create Project" />
       </ListItemButton>
-      <ListItemButton onClick={() => handleNavigate('/settings')}>
+      <ListItemButton onClick={() => handleNavigate('/settings/0')}>
         <ListItemIcon>
           <SettingsIcon />
         </ListItemIcon>

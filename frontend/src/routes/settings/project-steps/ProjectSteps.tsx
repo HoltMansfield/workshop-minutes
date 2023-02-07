@@ -1,4 +1,4 @@
-import { Box, Button, List, ListItem, ListItemButton, ListItemText, TextField } from "@mui/material"
+import { Box, Button, List, ListItem, ListItemButton, ListItemText, MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react"
 import { grey } from "@mui/material/colors"
 import { User } from "../../../DMS/collections/user"
@@ -11,6 +11,7 @@ import { useApplicationState } from "../../../hooks/state/useApplicationState"
 import { useServerState } from "../../../hooks/useServerState"
 import { AvailableProjectStep } from "src/DMS/collections/available-project-step"
 import { useCreateAvailableProjectStep } from "src/DMS/hooks/api/collections/available-project-step/useCreateAvailableProjectStep"
+import { ProjectStatus } from "src/DMS/collections/projectStatus"
 
 
 interface ProjectStepsProps {
@@ -19,14 +20,15 @@ interface ProjectStepsProps {
 
 export const ProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
   const { mutation: createMutation } = useCreateAvailableProjectStep()
-  const { availableProjectSteps, setAvailableProjectSteps } = useProjectState()
+  const { availableProjectSteps, setAvailableProjectSteps, projectStatuses } = useProjectState()
   const [newStatus, setNewStatus] = useState<string>('')
   const { displayMutationError } = useToaster()
   const [selectedAvailableProjectStep, setSelectedAvailableProjectStep] = useState<AvailableProjectStep | null>(null)
   const { serverState, setServerState } = useApplicationState()
   const { getServerStateColor } = useServerState()
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState<ProjectStatus>()
 
-  const handleAddStatus = () => {
+  const handleAddStep = () => {
     const sortOrder = availableProjectSteps ? availableProjectSteps.length + 1 : 1
     //ToDo: check for existing status with same name
     setServerState(ServerStates.saving)
@@ -42,6 +44,11 @@ export const ProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
         setServerState(ServerStates.error)
       }
     })
+  }
+
+  const handleSelectProjectStatus = (e: any) => {
+    const projectStatus = projectStatuses?.find(ps => ps._id === e.target.value)
+    setSelectedProjectStatus(projectStatus)
   }
 
   const renderList = () => {
@@ -73,6 +80,16 @@ export const ProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
     })
   }
 
+  const renderProjectStatuses = () => {
+    return projectStatuses?.map(status => {
+      return (
+        <MenuItem key={status._id} value={status._id} selected={status._id === selectedProjectStatus?._id}>
+          {status.name}
+        </MenuItem>
+      )
+    })
+  }
+
   return (
     <FormWrapper>
       <Box display="flex" flexDirection="column" flexGrow={1}>
@@ -94,11 +111,24 @@ export const ProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
             )}
           </Box>
         <Box display="flex" flexDirection="column">
-          <Box display="flex" mt={3}>
-            <TextField fullWidth value={newStatus} onChange={(e) => setNewStatus(e.target.value)} />
+          <Box display="flex" mt={4}>
+            <TextField label="New Step Name" fullWidth value={newStatus} onChange={(e) => setNewStatus(e.target.value)} />
           </Box>
+          <Box display="flex" m={2} mt={3}>
+            Related Project Status (Optional)
+          </Box>
+          <Box display="flex" flexGrow={1}>
+            <Select value={selectedProjectStatus ? selectedProjectStatus._id : ''} fullWidth onChange={handleSelectProjectStatus}>
+              {renderProjectStatuses()}
+            </Select>
+          </Box>
+          {!availableProjectSteps && (
+            <Box display="flex" mt={1} fontSize="0.9rem">
+              Your project steps can be related to a project status but its not required.  
+            </Box>
+          )}
           <Box display="flex" mt={2}>
-            <Button variant="outlined" onClick={handleAddStatus}>Add</Button>
+            <Button variant="outlined" onClick={handleAddStep}>Add</Button>
           </Box>
         </Box>
       </Box>

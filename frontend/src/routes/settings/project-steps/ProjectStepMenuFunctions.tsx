@@ -23,7 +23,7 @@ interface ProjectStepMenuFunctionsProps {
 export const ProjectStepMenuFunctions = ({
   step, selectedAvailableProjectStep, setSelectedAvailableProjectStep, availableProjectSteps, setServerState
 }: ProjectStepMenuFunctionsProps) =>{
-  const { setProjectStatuses } = useProjectState()
+  const { setAvailableProjectSteps } = useProjectState()
   const { mutation: updateMutation } = useUpdateAvailableProjectStep()
   const { mutation: deleteMutation } = useDeleteAvailableProjectStep()
   const { displayMutationError, toastError } = useToaster()
@@ -43,7 +43,7 @@ export const ProjectStepMenuFunctions = ({
         const updatedProjectStatus = {...selectedAvailableProjectStep as AvailableProjectStep, name: newName }
         setSelectedAvailableProjectStep(updatedProjectStatus)
         const statuses = availableProjectSteps?.filter(s => s._id !== selectedAvailableProjectStep?._id)
-        setProjectStatuses([...statuses as AvailableProjectStep[], updatedProjectStatus])
+        setAvailableProjectSteps([...statuses as AvailableProjectStep[], updatedProjectStatus])
         setServerState(ServerStates.loaded)
       },
       onError: (error) => {
@@ -110,7 +110,7 @@ export const ProjectStepMenuFunctions = ({
     try {
       setServerState(ServerStates.saving)
       await Promise.all(promises)
-      setProjectStatuses(projectStatuses)
+      setAvailableProjectSteps(projectStatuses)
       setServerState(ServerStates.loaded)
     } catch (e) {
       toastError('Reorder update failed. Please refresh the page.')

@@ -9,8 +9,7 @@ import { PageLayout } from './PageLayout'
 import { Spinner } from './Spinner'
 import { useCheckForPreviousSession } from '../hooks/state/useCheckForPreviousSession'
 import { useApplicationState } from '../hooks/state/useApplicationState'
-import { FetchProjects } from './FetchProjects'
-import { FetchProjectStatuses } from './FetchProjectStatuses'
+import { FetchAllData } from 'src/app/data-fetching/FetchAllData'
 
 const queryClient = new QueryClient()
 
@@ -31,8 +30,7 @@ function App() {
           <>
             <CssBaseline />
             <ToastContainer />
-            <FetchProjects />
-            <FetchProjectStatuses />
+            <FetchAllData />
             <PageLayout>
               <RouteTable />
             </PageLayout>
