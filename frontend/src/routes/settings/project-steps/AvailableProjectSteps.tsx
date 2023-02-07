@@ -18,7 +18,7 @@ interface ProjectStepsProps {
   loggedInUser: User
 }
 
-export const ProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
+export const AvailableProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
   const { mutation: createMutation } = useCreateAvailableProjectStep()
   const { availableProjectSteps, setAvailableProjectSteps, projectStatuses } = useProjectState()
   const [newStatus, setNewStatus] = useState<string>('')
