@@ -1,17 +1,23 @@
+import { useEffect, useState } from "react"
 import { Box, Button, MenuItem, Select, TextField } from "@mui/material"
 import { useForm } from "react-hook-form"
+import { ProjectStatus } from "src/DMS/collections/projectStatus"
 import { FormWrapper } from "../../app/forms/FormWrapper"
+import { Spinner } from "src/app/Spinner"
 
 interface ProjectFormProps {
   handleCreateProject: (name: string, status: string) => void
+  projectStatuses: ProjectStatus[]
 }
 
-export const ProjectForm = ({ handleCreateProject }: ProjectFormProps) => {
+export const ProjectForm = ({ handleCreateProject, projectStatuses }: ProjectFormProps) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
 
   const onSubmit = (data: any) => {
     handleCreateProject(data.name, data.status)
   }
+
+  if (!projectStatuses) return <Spinner />
 
   return (
     <FormWrapper>
@@ -22,15 +28,22 @@ export const ProjectForm = ({ handleCreateProject }: ProjectFormProps) => {
           </Box>
           {errors.name?.type === 'required' && <Box display="flex">Name is required</Box>}
           <Box display="flex" marginTop="1rem">
-            <Select value="Design" placeholder="Please select" label="Status" {...register("status", { required: "This is required" })}>
-              <MenuItem value="Design">Design</MenuItem>
-              <MenuItem value="Gathering Materials">Gathering Materials</MenuItem>
-              <MenuItem value="Build">Build</MenuItem>
-              <MenuItem value="Sand">Sand</MenuItem>
-              <MenuItem value="Finishing">Finishing</MenuItem>
-              <MenuItem value="Complete">Complete</MenuItem>
-              <MenuItem value="Complete">Delivered</MenuItem>
-            </Select>
+            {/* <Select value={selectedProjectStatus?._id} {...register("status", { required: "This is required" })}>
+              {projectStatuses?.map(ps => <MenuItem key={ps._id} value={ps._id}>{ps.name}</MenuItem>)}
+            </Select> */}
+            <TextField
+              select
+              fullWidth
+              label="Project Status"
+              defaultValue=''
+              inputProps={register('status', {
+                required: 'This is required',
+              })}
+            >
+              {projectStatuses.map(ps => (
+                <MenuItem key={ps._id} value={ps._id}>{ps.name}</MenuItem>
+              ))}
+            </TextField>
           </Box>
           {errors.status && <Box display="flex">Status is required</Box>}
           <Box display="flex" marginTop="1rem"><Button type="submit" variant="outlined">Create Project</Button></Box>

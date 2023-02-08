@@ -44,7 +44,7 @@ export const SideMenuContent = () => {
         </ListSubheader>
       }
     >
-      <ListItemButton onClick={() => handleNavigate('/create-project')}>
+      <ListItemButton onClick={() => handleNavigate('/create-project/step-1')}>
         <ListItemIcon>
           <AddBoxIcon />
         </ListItemIcon>

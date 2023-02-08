@@ -14,7 +14,7 @@ export const NoContent = () => {
           You don't have a project selected
         </Box>
         <Box display="flex" justifyContent="center" marginTop="1rem">
-          <Button onClick={() => navigate('/create-project')}>Create Project</Button>
+          <Button onClick={() => navigate('/create-project/step-1')}>Create Project</Button>
         </Box>
       </Box>
     </Paper>

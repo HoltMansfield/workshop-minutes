@@ -1,6 +1,7 @@
 import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { ProjectStatus } from "src/DMS/collections/projectStatus"
 import { RenderHttpError } from "../../app/components/RenderHttpError"
 import { Spinner } from "../../app/Spinner"
 import { useCreateProject } from "../../DMS/hooks/api/collections/project/useCreateProject"
@@ -9,9 +10,9 @@ import { useProjectState } from "../../hooks/state/useProjectState"
 import { ProjectForm } from "./ProjectForm"
 
 
-export const CreateProject = () => {
+export const CreateProjectStep1 = () => {
   const { mutation } = useCreateProject()
-  const { setSelectedProject, setSelectedProjectId, projects, setProjects } = useProjectState()
+  const { setSelectedProject, setSelectedProjectId, projects, setProjects, projectStatuses } = useProjectState()
   const {loggedInUser } = useApplicationState()
   const navigate = useNavigate()
 
@@ -30,11 +31,11 @@ export const CreateProject = () => {
     }
   },[mutation])
 
-  const handleCreateProject = (name: string, status: string) => {
-    const userId = loggedInUser?._id || ''
-    // ToDo check projects array for existing project with same name
-    mutation.mutate({ name, status, userId })
-  }
+  // const handleUpdteProject = (name: string, status: string) => {
+  //   const userId = loggedInUser?._id || ''
+  //   // ToDo check projects array for existing project with same name
+  //   mutation.mutate({ name, status, userId })
+  // }
 
   if (mutation.isLoading) {
     return <Spinner />
@@ -49,7 +50,8 @@ export const CreateProject = () => {
       {mutation.isError && (
         <RenderHttpError message={mutation.error.message} />
       )}
-      <ProjectForm handleCreateProject={handleCreateProject} />
+      Step 2
+      {/* <ProjectForm handleCreateProject={handleCreateProject} projectStatuses={projectStatuses as ProjectStatus[]} /> */}
     </Box>
   )
 }
