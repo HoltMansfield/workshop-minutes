@@ -5,17 +5,18 @@ import { ProjectStatus } from '../../DMS/collections/projectStatus'
 import { atomWithLocalStorage } from './atomWithLocalStorage'
 
 // The selected project is the primary unit of work
-const selectedProjectAtom = atom<Project | null | undefined>(undefined)
+const selectedProjectAtom = atom<Project>(null as Project)
 const selectedProjectIdAtom = atomWithLocalStorage('selected-project-id', null)
 
 // The list of available projects
-const projectsAtom = atom<Project[] | null>(null)
+const projectsAtom = atom<Project[]>(null as Project[])
 
 // The available project statuses
-const projectStatusesAtom = atom<ProjectStatus[] | null>(null)
+const projectStatusesAtom = atom<ProjectStatus[]>(null as ProjectStatus[])
 
 // The available project steps
-const availableProjectStepsAtom = atom<AvailableProjectStep[] | null>(null)
+const availableProjectStepsAtom = atom<AvailableProjectStep[]>(null as AvailableProjectStep[])
+
 
 export const useProjectState = () => {
   const [selectedProject, setSelectedProject] = useAtom(selectedProjectAtom)
@@ -27,13 +28,11 @@ export const useProjectState = () => {
 
   const setProjectStatuses = (newProjectStatuses: ProjectStatus[]) => {
     const sorted = newProjectStatuses.sort((a, b) => a.sortOrder-b.sortOrder)
-
     _setProjectStatuses(sorted)
   }
 
   const setAvailableProjectSteps = (newProjectStatuses: AvailableProjectStep[]) => {
     const sorted = newProjectStatuses.sort((a, b) => a.sortOrder-b.sortOrder)
-
     _setAvailableProjectSteps(sorted)
   }
 

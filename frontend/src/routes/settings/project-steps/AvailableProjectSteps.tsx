@@ -32,7 +32,12 @@ export const AvailableProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
     const sortOrder = availableProjectSteps ? availableProjectSteps.length + 1 : 1
     //ToDo: check for existing status with same name
     setServerState(ServerStates.saving)
-    createMutation.mutate({ userId: String(loggedInUser._id), name: String(newStatus), sortOrder }, {
+    createMutation.mutate({
+      userId: String(loggedInUser._id),
+      name: String(newStatus),
+      projectStatusId: selectedProjectStatus._id,
+      sortOrder
+    }, {
       onSuccess: (data) => {
         const existingStatuses = availableProjectSteps ? [...availableProjectSteps] : []
         setAvailableProjectSteps([...existingStatuses, data])
