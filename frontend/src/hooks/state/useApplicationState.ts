@@ -3,7 +3,7 @@ import { User } from 'src/DMS/collections/user'
 import { ServerStates } from 'src/types/application'
 
 
-const userAtom = atom<User | null | undefined>(undefined)
+const userAtom = atom<User | null | undefined>(undefined as User)
 const sideMenuOpenAtom = atom<boolean>(false)
 const serverStateAtom = atom(ServerStates.loaded)
 

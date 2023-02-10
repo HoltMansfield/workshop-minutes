@@ -35,7 +35,7 @@ export const ProjectStatus = ({ selectedProject }: ProjectStatusProps) => {
   const renderStatuses = () => {
     return projectStatuses?.map(({ name, _id }) => {
       return (
-        <MenuItem key={_id} value={name}>{name}</MenuItem>
+        <MenuItem key={_id} value={_id}>{name}</MenuItem>
       )
     })
   }
@@ -43,17 +43,7 @@ export const ProjectStatus = ({ selectedProject }: ProjectStatusProps) => {
   return (
     <Box display="flex" flexDirection="column" mt={2}>
       <Select value={selectedProject.status} onChange={handleStatusChange}>
-        {projectStatuses ? renderStatuses() : (
-          <>
-            <MenuItem value="Design">Design</MenuItem>
-            <MenuItem value="Gathering Materials">Gathering Materials</MenuItem>
-            <MenuItem value="Build">Build</MenuItem>
-            <MenuItem value="Sand">Sand</MenuItem>
-            <MenuItem value="Finishing">Finishing</MenuItem>
-            <MenuItem value="Complete">Complete</MenuItem>
-            <MenuItem value="Delivered">Delivered</MenuItem>
-          </>
-        )}
+        {renderStatuses()}
       </Select>
     </Box>
   )

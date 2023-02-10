@@ -2,7 +2,6 @@ import { Box } from "@mui/material"
 import { Navigate, useNavigate } from "react-router-dom"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { Header } from "./Header"
-import { LoadSelectedProject } from "./LoadSelectedProject"
 import { NoContent } from "./NoContent"
 import { ProjectStatus } from "./ProjectStatus"
 
