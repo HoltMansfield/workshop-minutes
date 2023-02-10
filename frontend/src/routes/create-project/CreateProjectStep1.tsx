@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ProjectStatus } from "src/DMS/collections/projectStatus"
 import { RenderHttpError } from "../../app/components/RenderHttpError"
 import { Spinner } from "../../app/Spinner"
@@ -39,6 +39,22 @@ export const CreateProjectStep1 = () => {
 
   if (mutation.isLoading) {
     return <Spinner />
+  }
+
+  if (!projectStatuses || projectStatuses.length === 0) {
+    return (
+      <Box display="flex" flexDirection="column">
+        <Box display="flex" fontWeight="bold" fontSize="1.3rem" mt={2}>
+          Hi there new user!
+        </Box>
+        <Box display="flex" mt={2}>
+          Before you can create a project you need to create the project statuses
+        </Box>
+        <Box display="flex" mt={2}>
+          <Link to='/settings/0'>Click here to create project statuses</Link>
+        </Box>
+      </Box>
+    )
   }
 
   return (

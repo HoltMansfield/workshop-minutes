@@ -11,15 +11,13 @@ export const FetchAllData = () => {
   const { selectedProjectId } = useProjectState()
   const { loggedInUser } = useApplicationState()
 
+  if (!loggedInUser) return null
+
   return (
     <>
-      {loggedInUser && (
-        <>
-          <FetchProjects loggedInUser={loggedInUser as User} />
-          <FetchProjectStatuses loggedInUser={loggedInUser as User} />
-          <FetchAvailableProjectSteps loggedInUser={loggedInUser as User} />
-        </>
-      )}
+      <FetchProjects loggedInUser={loggedInUser as User} />
+      <FetchProjectStatuses loggedInUser={loggedInUser as User} />
+      <FetchAvailableProjectSteps loggedInUser={loggedInUser as User} />
       {selectedProjectId && <FetchSelectedProject selectedProjectId={selectedProjectId} />}
     </>
   )

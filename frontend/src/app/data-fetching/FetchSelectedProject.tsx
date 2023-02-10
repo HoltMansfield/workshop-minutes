@@ -11,7 +11,7 @@ interface Props {
 
 export const FetchSelectedProject = ({ selectedProjectId }: Props) => {
   const { setSelectedProject } = useProjectState()
-  const { error, data } = useFindProject({ id: selectedProjectId })
+  const { error, data } = useFindProject({ _id: { $oid: selectedProjectId} })
   const { toastError } = useToaster()
 
   useEffect(() => {

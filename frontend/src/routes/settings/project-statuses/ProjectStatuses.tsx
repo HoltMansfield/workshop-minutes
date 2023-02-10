@@ -25,6 +25,7 @@ export const ProjectStatuses = ({ loggedInUser }: ProjectStatusesProps) => {
   const [selectedProjectStatus, setSelectedProjectStatus] = useState<ProjectStatus | null>(null)
   const { serverState, setServerState } = useApplicationState()
   const { getServerStateColor } = useServerState()
+  const [helpMessageVisible, setHelpMessageVisible] = useState(true)
 
   const handleAddStatus = () => {
     const sortOrder = projectStatuses ? projectStatuses.length + 1 : 1
@@ -71,6 +72,36 @@ export const ProjectStatuses = ({ loggedInUser }: ProjectStatusesProps) => {
         </ListItem>
       )
     })
+  }
+
+  if (helpMessageVisible && (!projectStatuses || projectStatuses.length === 0)) {
+    return (
+      <Box display="flex" flexDirection="column">
+        <Box display="flex" fontWeight="bold" fontSize="1.3rem" mt={2}>
+          Hi there new user!
+        </Box>
+        <Box display="flex" mt={2}>
+          A project status is a way to organize and understand the various states of your project
+        </Box>
+        <Box display="flex" mt={2}>
+          The guy who built this app is a woodworker so here are some example Statuses for a woodworking shop
+        </Box>
+        <Box display="flex" mt={1}>
+          <ul>
+            <li>Design</li>
+            <li>Gather materials</li>
+            <li>Cut List</li>
+            <li>Construction</li>
+            <li>Sanding</li>
+            <li>Staining</li>
+            <li>Film Finish (Polyurethane)</li>
+          </ul>
+        </Box>
+        <Box display="flex" mt={4} flexGrow={1} justifyContent="center">
+          <Button variant="outlined" onClick={() => setHelpMessageVisible(false)}>Click here to get started</Button>
+        </Box>
+      </Box>
+    )
   }
 
   return (
