@@ -2,17 +2,17 @@ import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { ProjectStatus } from "src/DMS/collections/projectStatus"
+import { SelectedProject } from "src/routes/selected-project/SelectedProject"
 import { RenderHttpError } from "../../app/components/RenderHttpError"
 import { Spinner } from "../../app/Spinner"
 import { useCreateProject } from "../../DMS/hooks/api/collections/project/useCreateProject"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { useProjectState } from "../../hooks/state/useProjectState"
-import { ProjectForm } from "./ProjectForm"
 
 
-export const CreateProjectStep1 = () => {
+export const CreateProjectStep2 = () => {
   const { mutation } = useCreateProject()
-  const { setSelectedProject, setSelectedProjectId, projects, setProjects, projectStatuses } = useProjectState()
+  const { setSelectedProject, setSelectedProjectId, projects, setProjects, selectedProject } = useProjectState()
   const {loggedInUser } = useApplicationState()
   const navigate = useNavigate()
 
@@ -50,8 +50,9 @@ export const CreateProjectStep1 = () => {
       {mutation.isError && (
         <RenderHttpError message={mutation.error.message} />
       )}
-      Step 2
-      {/* <ProjectForm handleCreateProject={handleCreateProject} projectStatuses={projectStatuses as ProjectStatus[]} /> */}
+      <Box display="flex">
+        {selectedProject?.name} has been created.
+      </Box>
     </Box>
   )
 }

@@ -1,28 +1,28 @@
 import { useEffect } from "react"
-import { User } from "src/DMS/collections/user"
+import { useFindProject } from "src/DMS/hooks/api/collections/project/useFindProject"
 import { useFindProjects } from "../../DMS/hooks/api/collections/project/useFindProjects"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { useToaster } from "../../hooks/useToaster"
 
 interface Props {
-  loggedInUser: User
+  selectedProjectId: string
 }
 
-export const FetchProjects = ({ loggedInUser }: Props) => {
-  const { setProjects } = useProjectState()
-  const { error, data } = useFindProjects({ userId: loggedInUser._id })
+export const FetchSelectedProject = ({ selectedProjectId }: Props) => {
+  const { setSelectedProject } = useProjectState()
+  const { error, data } = useFindProject({ id: selectedProjectId })
   const { toastError } = useToaster()
 
   useEffect(() => {
     if (data) {
-      setProjects(data)
+      setSelectedProject(data)
     }
   },[data])
 
   useEffect(() => {
     if (error) {
-      toastError("Could not load project statuses. Please reload the page.")
+      toastError("Could not load selected project. Please reload the page.")
     }
   }, [error])
  

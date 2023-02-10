@@ -7,12 +7,13 @@ import { useApplicationState } from "../../../hooks/state/useApplicationState"
 
 
 export const ProjectList = () => {
-  const { projects, setSelectedProject } = useProjectState()
+  const { projects, setSelectedProject, setSelectedProjectId } = useProjectState()
   const { setSideMenuOpen } = useApplicationState()
   const navigate = useNavigate()
 
   const handleSelectProject = (project: Project) => {
     setSelectedProject(project)
+    setSelectedProjectId(project._id)
     setSideMenuOpen(false)
     navigate('/')
   }
