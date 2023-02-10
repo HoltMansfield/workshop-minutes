@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import { Navigate, useNavigate } from "react-router-dom"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { Header } from "./Header"
 import { LoadSelectedProject } from "./LoadSelectedProject"
@@ -8,13 +9,16 @@ import { ProjectStatus } from "./ProjectStatus"
 
 export const SelectedProject = () => {
   const { selectedProject, selectedProjectId } = useProjectState()
+  const navigate = useNavigate()
 
   if (!selectedProject && !selectedProjectId) return <NoContent />
 
-  if (!selectedProject && selectedProjectId) return <LoadSelectedProject selectedProjectId={selectedProjectId} />
-
   if (!selectedProject) {
     return null
+  }
+
+  if (!selectedProject.steps) {
+    navigate('/create-project/step-2')
   }
 
   return (

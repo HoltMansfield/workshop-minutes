@@ -16,5 +16,5 @@ export interface Project {
   userId: string
   name: string
   status: string
-  step?: Step[]
+  steps?: Step[]
 }

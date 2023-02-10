@@ -15,9 +15,9 @@ export const FetchAllData = () => {
 
   return (
     <>
-      <FetchProjects loggedInUser={loggedInUser as User} />
-      <FetchProjectStatuses loggedInUser={loggedInUser as User} />
-      <FetchAvailableProjectSteps loggedInUser={loggedInUser as User} />
+      <FetchProjects loggedInUser={loggedInUser} />
+      <FetchProjectStatuses loggedInUser={loggedInUser} />
+      <FetchAvailableProjectSteps loggedInUser={loggedInUser} />
       {selectedProjectId && <FetchSelectedProject selectedProjectId={selectedProjectId} />}
     </>
   )

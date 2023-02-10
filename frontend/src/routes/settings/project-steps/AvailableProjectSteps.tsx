@@ -26,7 +26,7 @@ export const AvailableProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
   const [selectedAvailableProjectStep, setSelectedAvailableProjectStep] = useState<AvailableProjectStep | null>(null)
   const { serverState, setServerState } = useApplicationState()
   const { getServerStateColor } = useServerState()
-  const [selectedProjectStatus, setSelectedProjectStatus] = useState<ProjectStatus>()
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState<ProjectStatus | null>()
 
   const handleAddStep = () => {
     const sortOrder = availableProjectSteps ? availableProjectSteps.length + 1 : 1
@@ -42,6 +42,9 @@ export const AvailableProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
       onError: (error) => {
         displayMutationError(error, null, null)
         setServerState(ServerStates.error)
+      },
+      onSettled: () => {
+        setSelectedProjectStatus(null)
       }
     })
   }
@@ -124,7 +127,8 @@ export const AvailableProjectSteps = ({ loggedInUser }: ProjectStepsProps) => {
           </Box>
           {!availableProjectSteps && (
             <Box display="flex" mt={1} fontSize="0.9rem">
-              Your project steps can be related to a project status but its not required.  
+              Your project steps can be related to a project status but its not required.
+              Tip: You probably want at least 1 step per project status so you can track time.
             </Box>
           )}
           <Box display="flex" mt={2}>

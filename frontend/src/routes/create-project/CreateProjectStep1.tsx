@@ -66,6 +66,9 @@ export const CreateProjectStep1 = () => {
       {mutation.isError && (
         <RenderHttpError message={mutation.error.message} />
       )}
+      <Box display="flex" fontWeight="bold" fontSize="1.2rem">
+        Create Project Step 1
+      </Box>
       <ProjectForm handleCreateProject={handleCreateProject} projectStatuses={projectStatuses as ProjectStatus[]} />
     </Box>
   )
