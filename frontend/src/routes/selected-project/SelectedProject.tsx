@@ -1,5 +1,6 @@
 import { Box } from "@mui/material"
 import { Navigate, useNavigate } from "react-router-dom"
+import { ProjectSteps } from "src/routes/selected-project/ProjectSteps"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { Header } from "./Header"
 import { NoContent } from "./NoContent"
@@ -24,6 +25,9 @@ export const SelectedProject = () => {
     <Box display="flex" flexDirection="column" flexGrow={1}>
       <Header selectedProject={selectedProject} />
       <ProjectStatus selectedProject={selectedProject} />
+      <Box display="flex" mt={2}>
+        <ProjectSteps steps={selectedProject.steps} />
+      </Box>
     </Box>
   )
 }
