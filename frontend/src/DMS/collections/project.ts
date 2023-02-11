@@ -9,6 +9,7 @@ export interface Step {
   projectStatusId: string
   status: StepStatus
   secondsElapsed: number
+  sortOrder: number
 }
 
 export interface Project {

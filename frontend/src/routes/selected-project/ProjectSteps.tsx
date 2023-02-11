@@ -8,7 +8,7 @@ interface ProjectStepsProps {
 
 export const ProjectSteps = ({ steps }: ProjectStepsProps) => {
 
-  const renderSteps = () => steps.map((step, index) => {
+  const renderSteps = () => steps.sort((a, b) => a.sortOrder-b.sortOrder).map((step, index) => {
     return (
       <Box display="flex" key={`step-number-${index}`} m={1} flexGrow={1}>
         <ProjectStep step={step} />
