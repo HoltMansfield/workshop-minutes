@@ -10,14 +10,14 @@ export const ProjectSteps = ({ steps }: ProjectStepsProps) => {
 
   const renderSteps = () => steps.map((step, index) => {
     return (
-      <Box display="flex" key={`step-number-${index}`}>
+      <Box display="flex" key={`step-number-${index}`} m={1} flexGrow={1}>
         <ProjectStep step={step} />
       </Box>
     )
   })
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" flexGrow={1}>
       {renderSteps()}
     </Box>
   )

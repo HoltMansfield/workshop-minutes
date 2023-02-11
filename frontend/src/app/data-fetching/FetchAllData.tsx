@@ -8,17 +8,17 @@ import { useProjectState } from "src/hooks/state/useProjectState"
 
 
 export const FetchAllData = () => {
-  const { selectedProjectId } = useProjectState()
+  const { selectedProject, selectedProjectId, availableProjectSteps, projectStatuses, projects } = useProjectState()
   const { loggedInUser } = useApplicationState()
 
   if (!loggedInUser) return null
 
   return (
     <>
-      <FetchProjects loggedInUser={loggedInUser} />
-      <FetchProjectStatuses loggedInUser={loggedInUser} />
-      <FetchAvailableProjectSteps loggedInUser={loggedInUser} />
-      {selectedProjectId && <FetchSelectedProject selectedProjectId={selectedProjectId} />}
+      {!projects && <FetchProjects loggedInUser={loggedInUser} />}
+      {!projectStatuses && <FetchProjectStatuses loggedInUser={loggedInUser} />}
+      {!availableProjectSteps && <FetchAvailableProjectSteps loggedInUser={loggedInUser} />}
+      {selectedProjectId && !selectedProject && <FetchSelectedProject selectedProjectId={selectedProjectId} />}
     </>
   )
 }
