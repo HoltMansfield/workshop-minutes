@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import SwipeIcon from '@mui/icons-material/Swipe'
 import { Step } from "src/DMS/collections/project"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useProjectState } from "src/hooks/state/useProjectState"
 import { useUpdateProject } from "src/DMS/hooks/api/collections/project/useUpdateProject"
 import { useToaster } from "src/hooks/useToaster"
@@ -34,7 +34,7 @@ const _getMinutesLabel = (secondsElapsed: Number) => {
 
 export const ProjectStep = ({ step }: ProjectStepProps) => {
   const [seconds, setSeconds] = useState(step.secondsElapsed || 0)
-  const [intervalId, setIntervalId] = useState(null)
+  const intervalIdRef = useRef(null)
   const { selectedProject, setSelectedProject } = useProjectState()
   const { mutation } = useUpdateProject()
   const { displayMutationError } = useToaster()
@@ -43,13 +43,11 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     const intervalId = setInterval(() => {
       setSeconds(seconds => seconds + 1);
     }, 1000)
-    setIntervalId(intervalId)
+    intervalIdRef.current = intervalId
   }
 
   const handleStop = () => {
-    if (intervalId) {
-      clearInterval(intervalId)
-    }
+    if (intervalIdRef.current) clearInterval(intervalIdRef.current)
 
     const updatableStep = {...step}
     updatableStep.secondsElapsed = seconds
@@ -85,7 +83,7 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     }
 
     mutation.mutate(updateRequest, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         setSelectedProject({...selectedProject, steps: updatableSteps })
       },
       onError: displayMutationError
