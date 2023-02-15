@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { Step } from "src/DMS/collections/project"
-import { ProjectStep } from "src/routes/selected-project/ProjectStep"
+import { ProjectStep } from "src/routes/selected-project/step/ProjectStep"
 
 interface ProjectStepsProps {
   steps: Step[]

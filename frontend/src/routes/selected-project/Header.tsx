@@ -7,7 +7,7 @@ import { useDeleteProject } from "../../DMS/hooks/api/collections/project/useDel
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { useToaster } from "../../hooks/useToaster"
 import { useUpdateProject } from "../../DMS/hooks/api/collections/project/useUpdateProject"
-import { useGetStringDialog } from "../../app/dialogs/useGetStringDialog"
+import { useGetStringDialog } from "../../app/dialogs/string/useGetStringDialog"
 
 interface HeaderProps {
   selectedProject: Project

@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import AdapterDateFns from '@date-io/date-fns'
 import { useMaterialTheme } from '../hooks/useMaterialTheme'
 import { RouteTable } from '../routes/RouteTable'
 import { PageLayout } from './PageLayout'
@@ -26,16 +28,18 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <>
-            <CssBaseline />
-            <ToastContainer />
-            <FetchAllData />
-            <PageLayout>
-              <RouteTable />
-            </PageLayout>
-          </>
-        </BrowserRouter>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <BrowserRouter>
+            <>
+              <CssBaseline />
+              <ToastContainer />
+              <FetchAllData />
+              <PageLayout>
+                <RouteTable />
+              </PageLayout>
+            </>
+          </BrowserRouter>
+        </LocalizationProvider>
       </ThemeProvider>
     </QueryClientProvider>
   )

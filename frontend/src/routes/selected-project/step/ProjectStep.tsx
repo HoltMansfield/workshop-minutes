@@ -11,6 +11,7 @@ import { useProjectState } from "src/hooks/state/useProjectState"
 import { useUpdateProject } from "src/DMS/hooks/api/collections/project/useUpdateProject"
 import { useToaster } from "src/hooks/useToaster"
 import { MeatBallMenu } from "src/app/components/MeatballMenu"
+import { useGetTimeDialog } from "src/app/dialogs/time/useGetTimeDialog"
 
 interface ProjectStepProps {
   step: Step
@@ -90,8 +91,36 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     })
   }
 
-  const handleSetTimer = () => {
+  const handleTimeEntry = (newTimer: Date) => {
+    const updatableStep = {...step}
+    updatableStep.timer = newTimer
+    const updatableSteps = selectedProject.steps.filter(s => s.name !== step.name)
+    updatableSteps.push(updatableStep)
+    
+    const updateRequest = {
+      query: { _id: { $oid: selectedProject._id  } },
+      update: {
+        "$set": {
+          steps: updatableSteps
+        }
+      }
+    }
+    // mutation.mutate(updateRequest, {
+    //   onSuccess: () => {
+    //     setSelectedProject({...selectedProject, name: newName })
+    //   },
+    //   onError: displayMutationError
+    // })
+  }
 
+  const { setGetTimeDialogOpen, GetTimeDialog } = useGetTimeDialog({
+    text: `Create timer for: ${step.name}`,
+    value: step.timer,
+    onOkClicked: handleTimeEntry
+  })
+
+  const handleSetTimer = () => {
+    setGetTimeDialogOpen(true)
   }
 
   const items = [
@@ -142,6 +171,7 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
           </Box>
         </Grid>
       </Grid>
+      <GetTimeDialog />
     </Paper>
   )
 }

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { Navigate, useNavigate } from "react-router-dom"
-import { ProjectSteps } from "src/routes/selected-project/ProjectSteps"
+import { ProjectSteps } from "src/routes/selected-project/step/ProjectSteps"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { Header } from "./Header"
 import { NoContent } from "./NoContent"

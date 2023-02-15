@@ -10,6 +10,7 @@ export interface Step {
   status: StepStatus
   secondsElapsed: number
   sortOrder: number
+  timer: Date
 }
 
 export interface Project {

@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { MeatBallMenu } from "../../../app/components/MeatballMenu"
 import { useProjectState } from "../../../hooks/state/useProjectState"
-import { useGetStringDialog } from "../../../app/dialogs/useGetStringDialog"
+import { useGetStringDialog } from "../../../app/dialogs/string/useGetStringDialog"
 import { useToaster } from "../../../hooks/useToaster"
 import { ServerStates } from "../../../types/application"
 import { AvailableProjectStep } from "src/DMS/collections/available-project-step"

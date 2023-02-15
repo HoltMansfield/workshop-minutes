@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import { MeatBallMenu } from "../../../app/components/MeatballMenu"
 import { ProjectStatus } from "../../../DMS/collections/projectStatus"
 import { useProjectState } from "../../../hooks/state/useProjectState"
-import { useGetStringDialog } from "../../../app/dialogs/useGetStringDialog"
+import { useGetStringDialog } from "../../../app/dialogs/string/useGetStringDialog"
 import { useUpdateProjectStatus } from "../../../DMS/hooks/api/collections/project-status/useUpdateProjectStatus"
 import { useToaster } from "../../../hooks/useToaster"
 import { useDeleteProjectStatus } from "../../../DMS/hooks/api/collections/project-status/useDeleteProjectStatus"
