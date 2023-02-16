@@ -25,12 +25,11 @@ export const GetTimeDialog = ({ text, value, open, setOpen, onOkClicked }: GetTi
     const minutes = Number(renderMinutes())
     const seconds = Number(renderSeconds())
 
-    const hoursInMilli = hours * 60 * 60 * 1000
-    const minutesInMilli = minutes * 60 * 1000
-    const secondsInMilli = seconds * 1000
+    const hoursInSeconds = hours * 60 * 60
+    const minutesInSeconds = minutes * 60
 
-    const totalMilliseconds = hoursInMilli + minutesInMilli + secondsInMilli
-    onOkClicked(totalMilliseconds)
+    const totalSeconds = hoursInSeconds + minutesInSeconds + seconds
+    onOkClicked(totalSeconds)
     setOpen(false)
   }
 

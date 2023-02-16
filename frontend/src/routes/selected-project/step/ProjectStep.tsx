@@ -13,7 +13,6 @@ import { useToaster } from "src/hooks/useToaster"
 import { MeatBallMenu } from "src/app/components/MeatballMenu"
 import { useGetTimeDialog } from "src/app/dialogs/time/useGetTimeDialog"
 import { StepTimer } from "src/routes/selected-project/step/StepTimer"
-import { TimerNotification } from "src/routes/selected-project/step/TimerNotification"
 import { useNotification } from "src/routes/selected-project/step/useNotification"
 
 interface ProjectStepProps {
@@ -118,8 +117,9 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
   }
 
   const handleTimeEntry = (newTimer: number) => {
+    if (newTimer === 0) return
     const updatableStep = {...step}
-    updatableStep.timer = newTimer
+    updatableStep.timer = newTimer * 1000
     const updatableSteps = selectedProject.steps.filter(s => s.name !== step.name)
     updatableSteps.push(updatableStep)
 
@@ -144,15 +144,40 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     })
   }
 
-  const { setGetTimeDialogOpen, GetTimeDialog } = useGetTimeDialog({
+  const handleTimeOverride = (newTimer: number) => {
+    const updatableStep = {...step}
+    updatableStep.secondsElapsed = newTimer
+    const updatableSteps = selectedProject.steps.filter(s => s.name !== step.name)
+    updatableSteps.push(updatableStep)
+
+    const updateRequest = {
+      query: { _id: { $oid: selectedProject._id  } },
+      update: {
+        "$set": {
+          steps: updatableSteps
+        }
+      }
+    }
+    mutation.mutate(updateRequest, {
+      onSuccess: () => {
+        const updatedProject = {...selectedProject, steps: [...updatableSteps] }
+        setSelectedProject(updatedProject)
+      },
+      onError: displayMutationError
+    })
+  }
+
+  const { setGetTimeDialogOpen: setGetTimeForTimerDialogOpen, GetTimeDialog: GetTimeForTimerDialog } = useGetTimeDialog({
     text: `Create timer for: ${step.name}`,
     value: step.timer,
     onOkClicked: handleTimeEntry
   })
 
-  const handleSetTimer = () => {
-    setGetTimeDialogOpen(true)
-  }
+  const { setGetTimeDialogOpen: setGetTimeForOverrideDialogOpen, GetTimeDialog: GetTimeForOverrideDialog } = useGetTimeDialog({
+    text: `Create timer for: ${step.name}`,
+    value: step.timer,
+    onOkClicked: handleTimeOverride
+  })
 
   const items = [
     <MenuItem key="delete" onClick={handleDelete}>
@@ -161,13 +186,13 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
       </ListItemIcon>
       <ListItemText>Delete</ListItemText>
     </MenuItem>,
-    <MenuItem key="set-timer" onClick={handleSetTimer}>
+    <MenuItem key="set-timer" onClick={() => setGetTimeForTimerDialogOpen(true)}>
       <ListItemIcon>
         <AccessTimeIcon fontSize="small" />
       </ListItemIcon>
       <ListItemText>Set Timer</ListItemText>
     </MenuItem>,
-    <MenuItem key="manual-override">
+    <MenuItem key="manual-override" onClick={() => setGetTimeForOverrideDialogOpen(true)}>
       <ListItemIcon>
         <SwipeIcon fontSize="small" />
       </ListItemIcon>
@@ -205,7 +230,8 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
           </Box>
         </Grid>
       </Grid>
-      <GetTimeDialog />
+      <GetTimeForTimerDialog />
+      <GetTimeForOverrideDialog />
     </Paper>
   )
 }
