@@ -4,3 +4,5 @@
 - Sniff out usages of fontSize and swap in Typography
 
 -https://github.com/mobilusoss/react-web-notification/blob/develop/example/app.js
+
+-track previous timers for repeated steps ie: glue-ups

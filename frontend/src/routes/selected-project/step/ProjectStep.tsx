@@ -91,11 +91,15 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     })
   }
 
-  const handleTimeEntry = (newTimer: Date) => {
+  const handleTimeEntry = (newTimer: number) => {
     const updatableStep = {...step}
     updatableStep.timer = newTimer
     const updatableSteps = selectedProject.steps.filter(s => s.name !== step.name)
     updatableSteps.push(updatableStep)
+
+    setTimeout(() => {
+      alert('GLUE IS DRY')
+    }, newTimer)
     
     const updateRequest = {
       query: { _id: { $oid: selectedProject._id  } },

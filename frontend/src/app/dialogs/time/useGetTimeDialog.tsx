@@ -3,8 +3,8 @@ import { GetTimeDialog as Dialog } from './GetTimeDialog'
 
 export interface UseGetTimeDialogProps {
   text: string
-  value: Date
-  onOkClicked: (newValue: Date) => void
+  value: number
+  onOkClicked: (newValue: number) => void
 }
 
 export const useGetTimeDialog = (props: UseGetTimeDialogProps) => {
