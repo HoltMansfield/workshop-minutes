@@ -12,6 +12,7 @@ import { useUpdateProject } from "src/DMS/hooks/api/collections/project/useUpdat
 import { useToaster } from "src/hooks/useToaster"
 import { MeatBallMenu } from "src/app/components/MeatballMenu"
 import { useGetTimeDialog } from "src/app/dialogs/time/useGetTimeDialog"
+import { StepTimer } from "src/routes/selected-project/step/StepTimer"
 
 interface ProjectStepProps {
   step: Step
@@ -91,6 +92,28 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     })
   }
 
+  const clearTimer = () => {
+    const updatableStep = {...step}
+    updatableStep.timer = null
+    const updatableSteps = selectedProject.steps.filter(s => s.name !== step.name)
+    updatableSteps.push(updatableStep)
+    
+    const updateRequest = {
+      query: { _id: { $oid: selectedProject._id  } },
+      update: {
+        "$set": {
+          steps: updatableSteps
+        }
+      }
+    }
+    mutation.mutate(updateRequest, {
+      onSuccess: () => {
+        setSelectedProject({...selectedProject, steps: updatableSteps })
+      },
+      onError: displayMutationError
+    })
+  }
+
   const handleTimeEntry = (newTimer: number) => {
     const updatableStep = {...step}
     updatableStep.timer = newTimer
@@ -99,6 +122,7 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
 
     setTimeout(() => {
       alert('GLUE IS DRY')
+      clearTimer()
     }, newTimer)
     
     const updateRequest = {
@@ -109,12 +133,12 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
         }
       }
     }
-    // mutation.mutate(updateRequest, {
-    //   onSuccess: () => {
-    //     setSelectedProject({...selectedProject, name: newName })
-    //   },
-    //   onError: displayMutationError
-    // })
+    mutation.mutate(updateRequest, {
+      onSuccess: () => {
+        setSelectedProject({...selectedProject, steps: updatableSteps })
+      },
+      onError: displayMutationError
+    })
   }
 
   const { setGetTimeDialogOpen, GetTimeDialog } = useGetTimeDialog({
@@ -158,6 +182,9 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
             </Box>
             <Box display="flex" mt={0.8} ml={1}>
               {step.name}
+            </Box>
+            <Box display="flex">
+              <StepTimer step={step} />
             </Box>
             <Box display="flex" marginLeft="auto">
               <MeatBallMenu items={items} />
