@@ -16,7 +16,7 @@ export const TimerNotification = ({ step, setShowNotification }: TimerNotificati
       icon: imgUrl // optional
     })
     setShowNotification(false)
-  }, [])
+  })
 
   // useEffect(() => {
   //   if(window.Notification && Notification.permission !== "denied") {

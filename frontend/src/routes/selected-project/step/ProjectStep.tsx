@@ -14,6 +14,7 @@ import { MeatBallMenu } from "src/app/components/MeatballMenu"
 import { useGetTimeDialog } from "src/app/dialogs/time/useGetTimeDialog"
 import { StepTimer } from "src/routes/selected-project/step/StepTimer"
 import { TimerNotification } from "src/routes/selected-project/step/TimerNotification"
+import { useNotification } from "src/routes/selected-project/step/useNotification"
 
 interface ProjectStepProps {
   step: Step
@@ -41,7 +42,7 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
   const { selectedProject, setSelectedProject } = useProjectState()
   const { mutation } = useUpdateProject()
   const { displayMutationError } = useToaster()
-  const [showNotification, setShowNotification] = useState(false)
+  const { notify } = useNotification()
 
   const handleStart = () => {
     const intervalId = setInterval(() => {
@@ -123,10 +124,10 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     updatableSteps.push(updatableStep)
 
     setTimeout(() => {
-      setShowNotification(true)
+      notify('Timer done', `Timer up for: ${step.name}`)
       clearTimer()
     }, newTimer)
-    
+
     const updateRequest = {
       query: { _id: { $oid: selectedProject._id  } },
       update: {
@@ -187,7 +188,6 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
             </Box>
             <Box display="flex">
               <StepTimer step={step} />
-              {showNotification && <TimerNotification step={step} setShowNotification={setShowNotification} />}
             </Box>
             <Box display="flex" marginLeft="auto">
               <MeatBallMenu items={items} />
