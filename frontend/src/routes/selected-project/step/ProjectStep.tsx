@@ -13,6 +13,7 @@ import { useToaster } from "src/hooks/useToaster"
 import { MeatBallMenu } from "src/app/components/MeatballMenu"
 import { useGetTimeDialog } from "src/app/dialogs/time/useGetTimeDialog"
 import { StepTimer } from "src/routes/selected-project/step/StepTimer"
+import { TimerNotification } from "src/routes/selected-project/step/TimerNotification"
 
 interface ProjectStepProps {
   step: Step
@@ -40,6 +41,7 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
   const { selectedProject, setSelectedProject } = useProjectState()
   const { mutation } = useUpdateProject()
   const { displayMutationError } = useToaster()
+  const [showNotification, setShowNotification] = useState(false)
 
   const handleStart = () => {
     const intervalId = setInterval(() => {
@@ -121,7 +123,7 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     updatableSteps.push(updatableStep)
 
     setTimeout(() => {
-      alert('GLUE IS DRY')
+      setShowNotification(true)
       clearTimer()
     }, newTimer)
     
@@ -185,6 +187,7 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
             </Box>
             <Box display="flex">
               <StepTimer step={step} />
+              {showNotification && <TimerNotification step={step} setShowNotification={setShowNotification} />}
             </Box>
             <Box display="flex" marginLeft="auto">
               <MeatBallMenu items={items} />
