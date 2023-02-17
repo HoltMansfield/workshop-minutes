@@ -25,9 +25,9 @@ export const StepTimer = ({ step }: StepTimerProps) => {
   if (!step.timer) return null
 
   return (
-    <Box display="flex" mt={0.6}>
-      {showBottom && <HourGlassBottomIcon fontSize="small" />}
-      {!showBottom && <HourGlassTopIcon fontSize="small" />}
+    <Box display="flex" mt={0.7}>
+      {showBottom && <HourGlassBottomIcon fontSize="small" color="primary" />}
+      {!showBottom && <HourGlassTopIcon fontSize="small" color="primary" />}
     </Box>
   )
 }

@@ -26,7 +26,7 @@ export const SelectedProject = () => {
       <Header selectedProject={selectedProject} />
       <ProjectStatus selectedProject={selectedProject} />
       <Box display="flex" mt={2}>
-        <ProjectSteps steps={selectedProject.steps} />
+        <ProjectSteps selectedProject={selectedProject} />
       </Box>
     </Box>
   )

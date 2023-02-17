@@ -1,16 +1,16 @@
 import { Box } from "@mui/material"
-import { Step } from "src/DMS/collections/project"
+import { Project, Step } from "src/DMS/collections/project"
 import { ProjectStep } from "src/routes/selected-project/step/ProjectStep"
 
 interface ProjectStepsProps {
-  steps: Step[]
+  selectedProject: Project
 }
 
-export const ProjectSteps = ({ steps }: ProjectStepsProps) => {
+export const ProjectSteps = ({ selectedProject }: ProjectStepsProps) => {
 
-  const renderSteps = () => steps.sort((a, b) => a.sortOrder-b.sortOrder).map((step, index) => {
+  const renderSteps = () => selectedProject.steps.sort((a, b) => a.sortOrder-b.sortOrder).map((step, index) => {
     return (
-      <Box display="flex" key={`step-number-${index}`} m={1} flexGrow={1}>
+      <Box key={`step-number-${index}`} display="flex" m={1} flexGrow={1}>
         <ProjectStep step={step} />
       </Box>
     )

@@ -51,7 +51,10 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
   }
 
   const handleStop = () => {
-    if (intervalIdRef.current) clearInterval(intervalIdRef.current)
+    if (intervalIdRef.current) {
+      clearInterval(intervalIdRef.current)
+      intervalIdRef.current = null
+    }
 
     const updatableStep = {...step}
     updatableStep.secondsElapsed = seconds
@@ -126,7 +129,7 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     setTimeout(() => {
       notify('Timer done', `Timer up for: ${step.name}`)
       clearTimer()
-    }, newTimer)
+    }, newTimer * 1000)
 
     const updateRequest = {
       query: { _id: { $oid: selectedProject._id  } },
@@ -160,8 +163,8 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
     }
     mutation.mutate(updateRequest, {
       onSuccess: () => {
-        const updatedProject = {...selectedProject, steps: [...updatableSteps] }
-        setSelectedProject(updatedProject)
+        setSelectedProject({...selectedProject, steps: updatableSteps })
+        setSeconds(newTimer)
       },
       onError: displayMutationError
     })
@@ -202,16 +205,16 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
 
   return (
     <Paper sx={{ display: 'flex', flexGrow: 1, backgroundColor: grey[200] }} variant="outlined">
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid item xs={12} md={3}>
           <Box display="flex" m={1}>
             <Box display="flex" fontSize="0.9rem" fontWeight="bold" marginTop={0.2}>
-              <Chip label={_getMinutesLabel(seconds)} />
+              <Chip label={_getMinutesLabel(seconds)} color={intervalIdRef.current ? 'primary' : 'default'} />
             </Box>
             <Box display="flex" mt={0.8} ml={1}>
               {step.name}
             </Box>
-            <Box display="flex">
+            <Box display="flex" ml={0.5}>
               <StepTimer step={step} />
             </Box>
             <Box display="flex" marginLeft="auto">
@@ -222,10 +225,10 @@ export const ProjectStep = ({ step }: ProjectStepProps) => {
         <Grid item xs={12} md={6}>
           <Box display="flex" m={1}>
             <Box display="flex" onClick={handleStart}>
-              <IconButton><PlayCircleFilledIcon /></IconButton>
+              <IconButton><PlayCircleFilledIcon fontSize="large" /></IconButton>
             </Box>
             <Box display="flex" onClick={handleStop}>
-              <IconButton><StopCircleIcon /></IconButton>
+              <IconButton><StopCircleIcon fontSize="large" /></IconButton>
             </Box>
           </Box>
         </Grid>

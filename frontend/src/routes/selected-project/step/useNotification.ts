@@ -1,17 +1,25 @@
 import imgUrl from '/public/images/stopwatch.png'
+import soundUrl from '/public/sounds/alarm.mp3'
 
 export const useNotification = () => {
+  const sound = new Audio(soundUrl)
+
   const notify = (title: string, body: string) => {
     if(window.Notification && Notification.permission !== "denied") {
       Notification.requestPermission(function(status) {  // status is "granted", if accepted by user
         if (status === 'granted') {
-          const n = new Notification(title, { 
+          const notification = new Notification(title, { 
             body: body,
             silent: false,
-            icon: imgUrl // optional
+            icon: imgUrl
             //tag: `${selectedProject.name}-${step.name}`
           })
-          return n
+
+          notification.addEventListener("show", () => {
+            sound.play()
+          })
+
+          return notification
         }
       })
     }
