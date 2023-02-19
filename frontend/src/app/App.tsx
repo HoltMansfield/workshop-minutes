@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { LocalizationProvider } from '@mui/x-date-pickers'
-import AdapterDateFns from '@date-io/date-fns'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useMaterialTheme } from '../hooks/useMaterialTheme'
 import { RouteTable } from '../routes/RouteTable'
 import { PageLayout } from './PageLayout'
@@ -28,7 +28,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
           <BrowserRouter>
             <>
               <CssBaseline />

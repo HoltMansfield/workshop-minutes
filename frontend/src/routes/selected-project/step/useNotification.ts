@@ -1,5 +1,5 @@
-import imgUrl from '/public/images/stopwatch.png'
-import soundUrl from '/public/sounds/alarm.mp3'
+import imgUrl from '/images/stopwatch.png'
+import soundUrl from '/sounds/alarm.mp3'
 
 export const useNotification = () => {
   const sound = new Audio(soundUrl)
