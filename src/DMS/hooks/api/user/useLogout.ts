@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
-import { User } from '../../../../collections/user'
-import { HttpError } from '../../../../types/api'
-import { useDmsUser } from '../../useDmsUser'
+import { User } from '../../../collections/user'
+import { HttpError } from '../../../types/api'
+import { useDmsUser } from '../../core/useDmsUser'
 
 
 export const useLogout = () => {

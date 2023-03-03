@@ -8,7 +8,7 @@ import SwipeIcon from '@mui/icons-material/Swipe'
 import { Step } from "src/DMS/collections/project"
 import { useRef, useState } from "react"
 import { useProjectState } from "src/hooks/state/useProjectState"
-import { useUpdateProject } from "src/DMS/hooks/api/collections/project/useUpdateProject"
+import { useUpdateProject } from "src/DMS/hooks/api/project/useUpdateProject"
 import { useToaster } from "src/hooks/useToaster"
 import { MeatBallMenu } from "src/app/components/MeatballMenu"
 import { useGetTimeDialog } from "src/app/dialogs/time/useGetTimeDialog"

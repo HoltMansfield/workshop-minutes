@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { User } from "src/DMS/collections/user"
-import { useFindProjects } from "../../DMS/hooks/api/collections/project/useFindProjects"
+import { useFindProjects } from "../../DMS/hooks/api/project/useFindProjects"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { useToaster } from "../../hooks/useToaster"

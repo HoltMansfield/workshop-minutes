@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useHttp } from "src/DMS/hooks/api/useHttp"
+import { useHttp } from "src/DMS/hooks/core/useHttp"
 import { useApplicationState } from "./useApplicationState"
 
 export const useCheckForPreviousSession = () => {

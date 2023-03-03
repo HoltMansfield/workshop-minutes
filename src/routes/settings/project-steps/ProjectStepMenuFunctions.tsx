@@ -9,8 +9,8 @@ import { useGetStringDialog } from "../../../app/dialogs/string/useGetStringDial
 import { useToaster } from "../../../hooks/useToaster"
 import { ServerStates } from "../../../types/application"
 import { AvailableProjectStep } from "src/DMS/collections/available-project-step"
-import { useUpdateAvailableProjectStep } from "src/DMS/hooks/api/collections/available-project-step/useUpdateAvailableProjectStep"
-import { useDeleteAvailableProjectStep } from "src/DMS/hooks/api/collections/available-project-step/useDeleteAvailableProjectStep"
+import { useUpdateAvailableProjectStep } from "src/DMS/hooks/api/available-project-step/useUpdateAvailableProjectStep"
+import { useDeleteAvailableProjectStep } from "src/DMS/hooks/api/available-project-step/useDeleteAvailableProjectStep"
 
 interface ProjectStepMenuFunctionsProps {
   step: AvailableProjectStep

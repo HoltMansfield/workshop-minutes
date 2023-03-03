@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useToaster } from "src/hooks/useToaster"
 import { RenderHttpError } from "../../app/components/RenderHttpError"
 import { Spinner } from "../../app/Spinner"
-import { useLogin } from "../../DMS/hooks/api/collections/user/useLogin"
+import { useLogin } from "../../DMS/hooks/api/user/useLogin"
 import { useApplicationState } from "../../hooks/state/useApplicationState"
 import { LoginForm } from "./LoginForm"
 

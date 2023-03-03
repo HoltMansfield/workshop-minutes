@@ -2,7 +2,7 @@ import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import { Project } from "../../DMS/collections/project"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { useToaster } from "../../hooks/useToaster"
-import { useUpdateProject } from "../../DMS/hooks/api/collections/project/useUpdateProject"
+import { useUpdateProject } from "../../DMS/hooks/api/project/useUpdateProject"
 
 
 interface ProjectStatusProps {

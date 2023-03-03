@@ -5,10 +5,10 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import BarchartIcon from '@mui/icons-material/Barchart'
 import { MeatBallMenu } from "../../app/components/MeatballMenu"
 import { Project } from "../../DMS/collections/project"
-import { useDeleteProject } from "../../DMS/hooks/api/collections/project/useDeleteProject"
+import { useDeleteProject } from "../../DMS/hooks/api/project/useDeleteProject"
 import { useProjectState } from "../../hooks/state/useProjectState"
 import { useToaster } from "../../hooks/useToaster"
-import { useUpdateProject } from "../../DMS/hooks/api/collections/project/useUpdateProject"
+import { useUpdateProject } from "../../DMS/hooks/api/project/useUpdateProject"
 import { useGetStringDialog } from "../../app/dialogs/string/useGetStringDialog"
 
 interface HeaderProps {

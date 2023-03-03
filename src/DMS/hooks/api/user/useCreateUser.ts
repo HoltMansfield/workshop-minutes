@@ -1,6 +1,6 @@
 import { useMutation } from "react-query"
 import { User } from "src/DMS/collections/user"
-import { useHttp } from "src/DMS/hooks/api/useHttp"
+import { useHttp } from "src/DMS/hooks/core/useHttp"
 import { HttpError } from "src/DMS/types/api"
 
 export interface CreateUserAttempt {

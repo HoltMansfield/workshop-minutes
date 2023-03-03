@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
-import { AvailableProjectStep } from '../../../../collections/available-project-step'
-import { HttpError } from '../../../../types/api'
-import { useCollection } from "../../useCollection"
+import { AvailableProjectStep } from '../../../collections/available-project-step'
+import { HttpError } from '../../../types/api'
+import { useCollection } from "../../core/useCollection"
 
 export const useCreateAvailableProjectStep = () => {
   const { insertOne } = useCollection('availableProjectSteps')

@@ -10,7 +10,7 @@ import { ServerStates } from "../../../types/application"
 import { useApplicationState } from "../../../hooks/state/useApplicationState"
 import { useServerState } from "../../../hooks/useServerState"
 import { AvailableProjectStep } from "src/DMS/collections/available-project-step"
-import { useCreateAvailableProjectStep } from "src/DMS/hooks/api/collections/available-project-step/useCreateAvailableProjectStep"
+import { useCreateAvailableProjectStep } from "src/DMS/hooks/api/available-project-step/useCreateAvailableProjectStep"
 import { ProjectStatus } from "src/DMS/collections/projectStatus"
 
 

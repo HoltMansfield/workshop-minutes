@@ -2,7 +2,7 @@ import { Box, Button, List, ListItem, ListItemButton, ListItemText, TextField } 
 import { useState } from "react"
 import { grey } from "@mui/material/colors"
 import { User } from "../../../DMS/collections/user"
-import { useCreateProjectStatus } from "../../../DMS/hooks/api/collections/project-status/useCreateProjectStatus"
+import { useCreateProjectStatus } from "../../../DMS/hooks/api/project-status/useCreateProjectStatus"
 import { useProjectState } from "../../../hooks/state/useProjectState"
 import { useToaster } from "../../../hooks/useToaster"
 import { ProjectStatus } from "../../../DMS/collections/projectStatus"

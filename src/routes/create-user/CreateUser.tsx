@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { CreateUserAttempt, useCreateUser } from "src/DMS/hooks/api/collections/user/useCreateUser"
+import { CreateUserAttempt, useCreateUser } from "src/DMS/hooks/api/user/useCreateUser"
 import { useApplicationState } from "src/hooks/state/useApplicationState"
 import { useToaster } from "src/hooks/useToaster"
 import { CreateUserForm } from "./CreateUserForm"

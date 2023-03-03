@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
-import { ProjectStatus } from '../../../../collections/projectStatus'
-import { HttpError } from '../../../../types/api'
-import { useCollection } from "../../useCollection"
+import { ProjectStatus } from '../../../collections/projectStatus'
+import { HttpError } from '../../../types/api'
+import { useCollection } from "../../core/useCollection"
 
 export const useDeleteProjectStatus = () => {
   const { deleteOne } = useCollection('projectStatuses')
