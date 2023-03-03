@@ -19,7 +19,7 @@ export const Login = () => {
         setLoggedInUser(user)
         navigate('/')
       }, onError: (error) => {
-        toastError(error.message)
+        toastError(`There was an error when creating your account. Please refresh the page. ${error.message}`)
       }
     })
   }
