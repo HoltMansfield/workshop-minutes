@@ -15,7 +15,7 @@ export const useCollection = (collectionName: string) => {
   }
 
   const findOne = async (query: object): Promise<any> => {
-    const response = await post('data-api',{
+    const response = await post('/data-api',{
       action: 'findOne',
       collection: collectionName,
       filter: query
@@ -25,7 +25,7 @@ export const useCollection = (collectionName: string) => {
   }
 
   const find = async (query: object): Promise<any> => {
-    const response = await post('data-api',{
+    const response = await post('/data-api',{
       action: 'find',
       collection: collectionName,
       filter: query
@@ -35,7 +35,7 @@ export const useCollection = (collectionName: string) => {
   }
 
   const deleteOne = async (query: object): Promise<any> => {
-    const response = await post('data-api',{
+    const response = await post('/data-api',{
       action: 'deleteOne',
       collection: collectionName,
       filter: query
@@ -45,7 +45,7 @@ export const useCollection = (collectionName: string) => {
   }
 
   const updateOne = async (query: object, update: object): Promise<any> => {
-    const response = await post('data-api',{
+    const response = await post('/data-api',{
       action: 'updateOne',
       collection: collectionName,
       filter: query,
@@ -56,7 +56,7 @@ export const useCollection = (collectionName: string) => {
   }
 
   const updateMany = async (query: object, update: object): Promise<any> => {
-    const response = await post('data-api',{
+    const response = await post('/data-api',{
       action: 'updateMany',
       collection: collectionName,
       filter: query,

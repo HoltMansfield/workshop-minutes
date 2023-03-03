@@ -2,20 +2,17 @@ import { Box, Button, TextField } from "@mui/material"
 import { useForm } from "react-hook-form"
 import { FormWrapper } from "../../app/forms/FormWrapper"
 import { emailRegex } from "../../app/forms/regex"
-import { useCreateUser } from "./useCreateUser"
 
+interface CreateUserFormProps {
+  handleCreateUser: (data: any) => void
+}
 
-export const CreateUserForm = () => {
+export const CreateUserForm = ({ handleCreateUser }: CreateUserFormProps) => {
   const { register, handleSubmit, getValues, formState: { errors } } = useForm()
-  const { handleCreateAccount } = useCreateUser()
-
-  const onSubmit = (data: any) => {
-    handleCreateAccount(data.email, data.password, data.name)
-  }
 
   return (
     <FormWrapper>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexGrow: '1' }}>
+      <form onSubmit={handleSubmit(handleCreateUser)} style={{ display: 'flex', flexGrow: '1' }}>
         <Box display="flex" flexDirection="column" flexGrow={1}>
           <Box display="flex">
             <TextField label="Email *" variant="outlined" fullWidth {...register("email", { required: true, pattern: emailRegex })} />

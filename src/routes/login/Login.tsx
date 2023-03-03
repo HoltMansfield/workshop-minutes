@@ -1,5 +1,6 @@
 import { Box, Button } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import { useToaster } from "src/hooks/useToaster"
 import { RenderHttpError } from "../../app/components/RenderHttpError"
 import { Spinner } from "../../app/Spinner"
 import { useLogin } from "../../DMS/hooks/api/collections/user/useLogin"
@@ -10,13 +11,15 @@ export const Login = () => {
   const navigate = useNavigate()
   const { mutation } = useLogin()
   const { setLoggedInUser } = useApplicationState()
-
+  const { toastError } = useToaster()
 
   const handleLogin = (email: string, password: string) => {
     mutation.mutate({ email, password} , {
       onSuccess: (user) => {
         setLoggedInUser(user)
         navigate('/')
+      }, onError: (error) => {
+        toastError(error.message)
       }
     })
   }
@@ -32,7 +35,7 @@ export const Login = () => {
       flexGrow: 1
     }}>
       {mutation.isError && (
-        <RenderHttpError message={mutation.error.message} />
+        <RenderHttpError message="Email or Password is incorrect" />
       )}
       <Box display="flex" flexGrow={1} marginTop="1rem" marginBottom="1rem" maxHeight="270px">
         <LoginForm handleLogin={handleLogin} />

@@ -1,6 +1,8 @@
 import { Box, ListItemIcon, ListItemText, MenuItem } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import BarchartIcon from '@mui/icons-material/Barchart'
 import { MeatBallMenu } from "../../app/components/MeatballMenu"
 import { Project } from "../../DMS/collections/project"
 import { useDeleteProject } from "../../DMS/hooks/api/collections/project/useDeleteProject"
@@ -64,7 +66,7 @@ export const Header = ({ selectedProject }: HeaderProps) => {
     </MenuItem>,
     <MenuItem key="rename" onClick={() => setGetStringDialogOpen(true)}>
       <ListItemIcon>
-        <ContentCopyIcon fontSize="small" />
+        <EditIcon fontSize="small" />
       </ListItemIcon>
       <ListItemText>Rename</ListItemText>
     </MenuItem>,
@@ -73,6 +75,12 @@ export const Header = ({ selectedProject }: HeaderProps) => {
         <ContentCopyIcon fontSize="small" />
       </ListItemIcon>
       <ListItemText>Clone</ListItemText>
+    </MenuItem>,
+    <MenuItem key="graph">
+      <ListItemIcon>
+        <BarchartIcon fontSize="small" />
+      </ListItemIcon>
+      <ListItemText>Analytics</ListItemText>
     </MenuItem>
   ]
 

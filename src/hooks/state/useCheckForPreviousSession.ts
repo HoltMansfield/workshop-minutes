@@ -1,8 +1,10 @@
 import { useEffect } from "react"
+import { useHttp } from "src/DMS/hooks/api/useHttp"
 import { useApplicationState } from "./useApplicationState"
 
 export const useCheckForPreviousSession = () => {
   const { setLoggedInUser } = useApplicationState()
+  const { get } = useHttp()
   const base = import.meta.env.VITE_API_URL
 
   useEffect(() => {
@@ -12,15 +14,7 @@ export const useCheckForPreviousSession = () => {
   const checkForPreviousSession = async () => {
     // If our cookie is not expired we will get a user back
     try {
-      const response = await fetch(`${base}/users`, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      })
-      const user = await response.json()
+      const user = await get('/users')
       setLoggedInUser(user)
     } catch (e) {
      alert(e)

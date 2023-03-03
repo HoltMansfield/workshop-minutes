@@ -13,7 +13,7 @@ declare module '@mui/material/styles' {
       danger?: string;
     };
   }
-} 
+}
 
 
 export const useMaterialTheme = () => {
