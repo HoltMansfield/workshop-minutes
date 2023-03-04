@@ -8,7 +8,9 @@ export const FetchLoggedInUser = () => {
   const { data } = useGetLoggedInUser()
 
   useEffect(() => {
-    if (data) setLoggedInUser(data)
+    if (data !== undefined) {
+      setLoggedInUser(data)
+    }
   }, [data])
 
   return null
