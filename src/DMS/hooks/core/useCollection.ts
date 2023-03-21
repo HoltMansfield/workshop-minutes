@@ -7,7 +7,7 @@ export const useCollection = (collectionName: string) => {
   const { post } = useHttp()
 
   const insertOne = async (document: object): Promise<any> => {
-    return post('data-api', {
+    return post('/data-api', {
       action: 'insertOne',
       collection: collectionName,
       document: document
